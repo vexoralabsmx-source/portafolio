@@ -1,23 +1,25 @@
 "use client";
 
 import { useEffect } from "react";
+import { MotionConfig } from "framer-motion";
 import Lenis from "lenis";
 
 export function MotionProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let lenis: Lenis | undefined;
     let frame = 0;
-    const raf = (time: number) => {
-      lenis.raf(time);
+    const stop = () => { cancelAnimationFrame(frame); lenis?.destroy(); lenis = undefined; };
+    const update = () => {
+      stop();
+      if (preference.matches) return;
+      lenis = new Lenis({ duration: .95, smoothWheel: true });
+      const raf = (time: number) => { lenis?.raf(time); frame = requestAnimationFrame(raf); };
       frame = requestAnimationFrame(raf);
     };
-    frame = requestAnimationFrame(raf);
-    return () => {
-      cancelAnimationFrame(frame);
-      lenis.destroy();
-    };
+    update();
+    preference.addEventListener("change", update);
+    return () => { stop(); preference.removeEventListener("change", update); };
   }, []);
-
-  return <>{children}</>;
+  return <MotionConfig reducedMotion="user">{children}</MotionConfig>;
 }

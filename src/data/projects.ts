@@ -81,6 +81,70 @@ export const projects: Project[] = [
   "accent": "#e7ffd3",
   index: "02"
 },
+{
+  "slug": "noctra",
+  "liveUrl": "https://noctra.website",
+  "name": "Noctra",
+  "type": "App de música / Escucha privada",
+  "category": "Plataformas",
+  "description": "Tu música, a tu ritmo. Una experiencia de escucha con biblioteca, playlists e historial en una interfaz de inspiración nocturna.",
+  "challenge": "Organizar la experiencia musical alrededor de la escucha, con acceso claro a la biblioteca y las selecciones personales.",
+  "solution": "Una app musical con reproductor, playlists, favoritos e historial, reunidos en una interfaz oscura que da protagonismo a la música.",
+  "result": "Un espacio personal para explorar la biblioteca y volver a tus selecciones musicales.",
+  "tags": [
+    "Música",
+    "Web App",
+    "UI/UX",
+    "Biblioteca"
+  ],
+  "features": [
+    "Reproductor musical",
+    "Biblioteca y playlists",
+    "Historial de escucha",
+    "Selección de favoritos"
+  ],
+  "tech": [
+    "Reproductor",
+    "Biblioteca",
+    "Playlists",
+    "Cuenta local"
+  ],
+  "color": "#dc9b64",
+  "accent": "#ffe0bc",
+  index: "03"
+},
+{
+  "slug": "vexora-sites",
+  "liveUrl": "https://vexorasites.shop",
+  "name": "VexoraSites",
+  "type": "Editor visual / Sitios multipágina",
+  "category": "Plataformas",
+  "description": "Un estudio visual para crear sitios multipágina. Plantillas, contenido y movimiento dentro de un mismo flujo de edición.",
+  "challenge": "Convertir las decisiones de estructura, contenido y diseño de un sitio web en un proceso comprensible.",
+  "solution": "Un editor visual con páginas, secciones, direcciones creativas y controles responsive para construir una presencia digital completa.",
+  "result": "Un flujo continuo para elegir una dirección visual, editar el contenido y preparar un sitio multipágina.",
+  "tags": [
+    "Editor visual",
+    "Web Builder",
+    "Multipágina",
+    "Motion"
+  ],
+  "features": [
+    "Editor de páginas y secciones",
+    "Plantillas con dirección visual",
+    "Vistas responsive",
+    "Gestión de medios"
+  ],
+  "tech": [
+    "Editor visual",
+    "Multipágina",
+    "Responsive",
+    "Cloudinary"
+  ],
+  "color": "#ac8bfa",
+  "accent": "#e9ddff",
+  index: "04"
+},
   {
     slug: "ovrlmt",
     liveUrl: "https://ovrlmt.xyz/",
@@ -96,7 +160,7 @@ export const projects: Project[] = [
     tech: ["Next.js", "Motion", "Headless Commerce", "3D CSS"],
     color: "#e1251b",
     accent: "#f3efe7",
-    index: "03",
+    index: "05",
   },
   {
     slug: "vexora-labs",
@@ -113,7 +177,7 @@ export const projects: Project[] = [
     tech: ["React", "TypeScript", "APIs", "Motion"],
     color: "#e1251b",
     accent: "#8b8d91",
-    index: "04",
+    index: "06",
   },
   {
     slug: "vexora-academy",
@@ -130,7 +194,7 @@ export const projects: Project[] = [
     tech: ["Next.js", "Database", "Auth", "Gamification"],
     color: "#b42318",
     accent: "#d0d0d0",
-    index: "05",
+    index: "07",
   },
   {
     slug: "anondrop",
@@ -147,7 +211,7 @@ export const projects: Project[] = [
     tech: ["React", "Analytics", "QR", "Responsive UI"],
     color: "#e1251b",
     accent: "#6f7074",
-    index: "06",
+    index: "08",
   },
   {
     slug: "furei",
@@ -164,7 +228,7 @@ export const projects: Project[] = [
     tech: ["Next.js", "CMS", "Accessibility", "Forms"],
     color: "#c8352b",
     accent: "#f3efe7",
-    index: "07",
+    index: "09",
   },
   {
     slug: "wayakin-web",
@@ -181,7 +245,7 @@ export const projects: Project[] = [
     tech: ["Next.js", "CMS", "SEO", "Responsive"],
     color: "#e1251b",
     accent: "#a5a5a5",
-    index: "08",
+    index: "10",
   },
   {
     slug: "wayakin-nfc-check",
@@ -197,7 +261,7 @@ export const projects: Project[] = [
     tech: ["React", "NFC", "Database", "Realtime"],
     color: "#9f211a",
     accent: "#e8e3da",
-    index: "09",
+    index: "11",
   },
   {
     slug: "wayakin-extended",
@@ -213,7 +277,7 @@ export const projects: Project[] = [
     tech: ["Next.js", "Realtime DB", "Maps", "Role Access"],
     color: "#e1251b",
     accent: "#737477",
-    index: "10",
+    index: "12",
   },
 ];
 

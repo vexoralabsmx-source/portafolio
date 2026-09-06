@@ -15,12 +15,12 @@
 - package.json, package-lock.json, tsconfig.json
 
 ## Verificación
-- npm run build: correcto, 22 páginas generadas.
+- npm run build: correcto, 24 páginas generadas.
 - TypeScript: correcto.
 - Navegador: AeroShards data-ready=true; sin errores reportados.
 - 390 px: portada y ficha SendGlide sin desbordamiento horizontal.
 - Menú móvil: abre y cierra con Escape.
-- Filtro Plataformas: AuraCRM, SendGlide y Wayakin Extended.
+- Filtro Plataformas: AuraCRM, SendGlide, Noctra, VexoraSites y Wayakin Extended.
 - Fichas nuevas: títulos y enlaces externos correctos.
 - npm run lint: pendiente; el proyecto no tiene ESLint configurado y solicita configuración interactiva.
 
@@ -40,3 +40,25 @@
 ## Ajustes de contacto y publicación
 - FUREI enlaza a https://somosfureimx.org/.
 - Eliminado el bloque de email «Propuestas y briefs / Email profesional / Configurable».
+
+## Composiciones y movimiento — septiembre 2026
+- Los 12 proyectos tienen composiciones conceptuales propias; se reutilizan en portada, catálogo y ficha.
+- Noctra y VexoraSites añadidos con enlaces, descripción, ficha y sitemap. La portada destaca 6 proyectos.
+- Nuevo componente animated-heading.tsx: entrada escalonada por palabras conservando headings semánticos.
+- Nuevos estados hover en tarjetas, botones y navegación; filtros con aria-pressed y transiciones de posición.
+- MotionConfig y Lenis respetan la preferencia de movimiento reducido, también si cambia durante la sesión.
+- Sin dependencias nuevas.
+
+### Archivos de esta actualización
+- src/data/projects.ts, src/app/page.tsx, src/app/globals.css
+- src/components/project-visual.tsx, animated-heading.tsx, reveal.tsx
+- src/components/projects-grid.tsx, motion-provider.tsx, page-transition.tsx
+- src/components/section-heading.tsx, page-hero.tsx, final-cta.tsx
+
+### Pruebas adicionales
+- Catálogo: 12 tarjetas y 12 composiciones; sin errores de navegador.
+- Nuevas fichas: títulos y destinos externos verificados.
+- Filtro Plataformas: 5 proyectos y estado accesible correcto.
+- Movimiento reducido: título visible, palabras estáticas y sin canvas WebGPU.
+- Escritorio 1440 px y móvil 375 / 320 px: revisión de composición y desbordamientos.
+- Prueba manual: pasar el cursor por Noctra, Academia y NFC; revisar el ecualizador, progreso y resaltado del lector.
