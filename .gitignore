@@ -1,0 +1,10 @@
+node_modules
+.next
+out
+.env*.local
+npm-debug.log*
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+preview-*.png

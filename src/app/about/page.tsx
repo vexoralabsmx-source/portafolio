@@ -1,0 +1,18 @@
+import type { Metadata } from "next";
+import { Code2, GraduationCap, MapPin, Sparkles, Workflow } from "lucide-react";
+import { PageHero } from "@/components/page-hero";
+import { Reveal } from "@/components/reveal";
+import { SkillsMarquee } from "@/components/skills-marquee";
+import { FinalCTA } from "@/components/final-cta";
+
+export const metadata: Metadata = { title: "Sobre mí", description: "La historia de Miguel Ángel Dorantes Hernández: creador digital, desarrollador web y diseñador UI/UX de Puebla, México." };
+
+export default function AboutPage() {
+  return <><PageHero eyebrow="MIGUEL ÁNGEL DORANTES HERNÁNDEZ / PUEBLA, MX" title={<>No aprendí esperando una oportunidad. <span className="gradient-text">Aprendí construyendo.</span></>} text="Creador digital, desarrollador web, diseñador UI/UX y constructor de experiencias digitales."/>
+    <section className="about-lead section-shell"><Reveal className="about-art glass"><div className="about-art-orbit"/><strong>MÁ</strong><span>CREATIVE<br/>DEVELOPER<br/>DESIGNER</span><i>16 / PUEBLA</i></Reveal><Reveal className="about-story"><span className="eyebrow">MI HISTORIA</span><h2>Curiosidad convertida en una forma de crear.</h2><p>Soy Miguel Ángel Dorantes Hernández. Desde los 7 años empecé en el mundo digital editando videos. Con el tiempo fui escalando hacia el diseño, desarrollo web, automatizaciones, experiencias interactivas, UI/UX y creación de proyectos digitales completos.</p><p>Mi aprendizaje ha sido principalmente autodidacta, combinando tutoriales, práctica constante, maestros y proyectos reales. Esto me permitió desarrollar una forma de trabajo práctica: entiendo una idea, la convierto en una experiencia visual clara y después la llevo a una web, plataforma o sistema funcional.</p><p>Hoy construyo experiencias digitales para marcas, empresas y emprendedores que quieren elevar su percepción, vender mejor y operar con herramientas que funcionen de verdad.</p></Reveal></section>
+    <section className="about-facts section-shell section-pad">{[
+      [Sparkles,"9+ años","Explorando el mundo digital"], [Code2,"Web + UI/UX","Diseño y desarrollo conectado"], [Workflow,"Automatización","Sistemas que ahorran tiempo"], [MapPin,"Puebla, México","Trabajando con visión global"]
+    ].map(([Icon,title,text]) => { const I = Icon as typeof Sparkles; return <Reveal className="fact-card glass" key={String(title)}><I/><strong>{String(title)}</strong><span>{String(text)}</span></Reveal>})}</section>
+    <section className="education section-shell section-pad"><Reveal><span className="eyebrow">FORMACIÓN</span><h2>Práctica constante. <span className="gradient-text">Problemas reales.</span></h2><p>Mi formación combina educación académica con aprendizaje independiente, experimentación y acompañamiento de maestros.</p></Reveal><div className="education-list"><Reveal className="education-item"><GraduationCap/><span>01</span><div><h3>Instituto Oriente de Puebla</h3><p>Primaria · 1° y 2° de secundaria</p></div></Reveal><Reveal className="education-item"><GraduationCap/><span>02</span><div><h3>Colegio Real de Oriente</h3><p>3° de secundaria</p></div></Reveal><Reveal className="education-item highlight"><Sparkles/><span>03</span><div><h3>Formación autodidacta continua</h3><p>Desarrollo web, diseño digital, edición, UI/UX, automatizaciones, sistemas web, branding y proyectos reales.</p></div></Reveal></div></section>
+    <section className="belief section-shell"><Reveal><span>MANIFIESTO</span><blockquote>“La edad no define la calidad de una idea. La práctica, el criterio y la capacidad de resolverla sí.”</blockquote></Reveal></section><SkillsMarquee/><FinalCTA/></>;
+}
