@@ -18,11 +18,12 @@ import {
 } from "react-icons/tb";
 
 export const SECTION = {
-  label: "Get In Touch",
+  label: "Contacto",
 };
 
 // Add / remove countries as needed. code = dial prefix (no +).
 export const COUNTRIES = [
+  { code: "52", name: "México", flag: "🇲🇽" },
   { code: "91",  name: "India",         flag: "🇮🇳" },
   { code: "1",   name: "US / Canada",   flag: "🇺🇸" },
   { code: "44",  name: "UK",            flag: "🇬🇧" },

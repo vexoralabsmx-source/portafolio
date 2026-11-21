@@ -56,19 +56,19 @@ export default function OpenSourceView() {
   return (
     <main className="min-h-screen pt-32 pb-20 px-6 md:px-20 flex flex-col items-center justify-center relative overflow-hidden">
       <Cursor />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#ff6b1a]/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#e1251b]/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="relative z-10 max-w-3xl w-full text-center flex flex-col items-center">
-        <div className="w-20 h-20 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-8">
-          <FiGithub size={40} className="text-[#ff6b1a]" />
+        <div className="w-20 h-20 bg-bone/5 border border-bone/10 rounded-full flex items-center justify-center mb-8">
+          <FiGithub size={40} className="text-[#e1251b]" />
         </div>
 
-        <h1 className="text-white text-5xl md:text-7xl font-black tracking-tighter mb-6">
+        <h1 className="text-bone text-5xl md:text-7xl font-black tracking-tighter mb-6">
           Open Source <br/>
-          <span className="text-white/30">Initiative</span>
+          <span className="text-bone/30">Initiative</span>
         </h1>
 
-        <p className="text-white/50 text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto mb-10">
+        <p className="text-bone/50 text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto mb-10">
           This portfolio is entirely open-source. My goal is to help other developers build premium, high-end cinematic experiences by studying the code, animations, and architecture used here.
         </p>
 
@@ -77,29 +77,29 @@ export default function OpenSourceView() {
           href={`https://github.com/${GITHUB_USER}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="w-full flex items-center gap-4 bg-white/[0.03] hover:bg-white/[0.06] border border-white/8 rounded-2xl p-4 mb-6 transition-all duration-300 group text-left"
+          className="w-full flex items-center gap-4 bg-bone/[0.03] hover:bg-bone/[0.06] border border-bone/8 rounded-2xl p-4 mb-6 transition-all duration-300 group text-left"
         >
           {ghUser?.avatar_url ? (
-            <img src={ghUser.avatar_url} alt={GITHUB_USER} className="w-12 h-12 rounded-full border border-white/10" />
+            <img src={ghUser.avatar_url} alt={GITHUB_USER} className="w-12 h-12 rounded-full border border-bone/10" />
           ) : (
-            <div className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
-              <FiGithub size={20} className="text-white/30" />
+            <div className="w-12 h-12 rounded-full bg-bone/5 border border-bone/10 flex items-center justify-center">
+              <FiGithub size={20} className="text-bone/30" />
             </div>
           )}
           <div className="flex-1 min-w-0 text-left">
-            <p className="text-white font-bold text-sm">{ghUser?.name || GITHUB_USER}</p>
-            <p className="text-white/30 text-xs truncate">{ghUser?.bio || `github.com/${GITHUB_USER}`}</p>
+            <p className="text-bone font-bold text-sm">{ghUser?.name || GITHUB_USER}</p>
+            <p className="text-bone/30 text-xs truncate">{ghUser?.bio || `github.com/${GITHUB_USER}`}</p>
           </div>
           <div className="flex items-center gap-4 shrink-0">
-            <div className="flex items-center gap-1.5 text-white/40">
+            <div className="flex items-center gap-1.5 text-bone/40">
               <FiStar size={13} className="text-yellow-400" />
-              <span className="text-sm font-bold text-white">{ghRepo ? stars.toLocaleString() : <span className="text-white/20">—</span>}</span>
+              <span className="text-sm font-bold text-bone">{ghRepo ? stars.toLocaleString() : <span className="text-bone/20">—</span>}</span>
             </div>
-            <div className="flex items-center gap-1.5 text-white/40">
+            <div className="flex items-center gap-1.5 text-bone/40">
               <FiGitBranch size={13} />
-              <span className="text-sm font-bold text-white">{ghRepo ? forks.toLocaleString() : <span className="text-white/20">—</span>}</span>
+              <span className="text-sm font-bold text-bone">{ghRepo ? forks.toLocaleString() : <span className="text-bone/20">—</span>}</span>
             </div>
-            <FiExternalLink size={13} className="text-white/20 group-hover:text-[#ff6b1a] transition-colors" />
+            <FiExternalLink size={13} className="text-bone/20 group-hover:text-[#e1251b] transition-colors" />
           </div>
         </a>
 
@@ -110,12 +110,12 @@ export default function OpenSourceView() {
             { icon: FiEye,       label: "Repo Views",   value: repoViews,   suffix: "+" },
             { icon: FiUsers,     label: "Site Visits",  value: totalVisits, suffix: "+" },
           ].map(({ icon: Icon, label, value, suffix }) => (
-            <div key={label} className="flex flex-col items-center gap-1.5 py-5 px-3 bg-white/[0.03] border border-white/8 rounded-2xl">
-              <Icon size={14} className="text-[#ff6b1a] mb-1" />
-              <span className="text-white font-black text-2xl md:text-3xl tracking-tighter">
-                {stats ? <CountUp target={value} suffix={suffix} /> : <span className="text-white/20 animate-pulse">—</span>}
+            <div key={label} className="flex flex-col items-center gap-1.5 py-5 px-3 bg-bone/[0.03] border border-bone/8 rounded-2xl">
+              <Icon size={14} className="text-[#e1251b] mb-1" />
+              <span className="text-bone font-black text-2xl md:text-3xl tracking-tighter">
+                {stats ? <CountUp target={value} suffix={suffix} /> : <span className="text-bone/20 animate-pulse">—</span>}
               </span>
-              <span className="text-[9px] uppercase tracking-[0.35em] text-white/25 font-medium">{label}</span>
+              <span className="text-[9px] uppercase tracking-[0.35em] text-bone/25 font-medium">{label}</span>
             </div>
           ))}
         </div>
@@ -127,7 +127,7 @@ export default function OpenSourceView() {
             target="_blank"
             rel="noopener noreferrer"
             label="Open Source Repository"
-            className="w-full sm:w-auto px-8 py-4 bg-white text-black font-black text-[11px] uppercase tracking-[0.2em] rounded-full hover:scale-105 transition-transform duration-300 flex items-center justify-center gap-3"
+            className="w-full sm:w-auto px-8 py-4 bg-bone text-black font-black text-[11px] uppercase tracking-[0.2em] rounded-full hover:scale-105 transition-transform duration-300 flex items-center justify-center gap-3"
           >
             <FiGithub size={16} />
             View Repository
@@ -139,7 +139,7 @@ export default function OpenSourceView() {
             target="_blank"
             rel="noopener noreferrer"
             label="Open Source Download"
-            className="w-full sm:w-auto px-8 py-4 bg-transparent border border-white/10 text-white font-bold text-[11px] uppercase tracking-[0.2em] rounded-full hover:bg-white/5 transition-colors duration-300 flex items-center justify-center gap-3"
+            className="w-full sm:w-auto px-8 py-4 bg-transparent border border-bone/10 text-bone font-bold text-[11px] uppercase tracking-[0.2em] rounded-full hover:bg-bone/5 transition-colors duration-300 flex items-center justify-center gap-3"
           >
             <FiDownload size={16} />
             Download Source
@@ -148,26 +148,26 @@ export default function OpenSourceView() {
           <TrackedLink
             href="/open-source/docs"
             label="Open Source Docs"
-            className="w-full sm:w-auto px-8 py-4 bg-[#ff6b1a]/10 border border-[#ff6b1a]/20 text-[#ff6b1a] font-bold text-[11px] uppercase tracking-[0.2em] rounded-full hover:bg-[#ff6b1a]/20 transition-colors duration-300 flex items-center justify-center gap-3"
+            className="w-full sm:w-auto px-8 py-4 bg-[#e1251b]/10 border border-[#e1251b]/20 text-[#e1251b] font-bold text-[11px] uppercase tracking-[0.2em] rounded-full hover:bg-[#e1251b]/20 transition-colors duration-300 flex items-center justify-center gap-3"
           >
             <FiBook size={16} />
             Documentation
           </TrackedLink>
         </div>
 
-        <div className="mt-20 pt-10 border-t border-white/5 w-full">
+        <div className="mt-20 pt-10 border-t border-bone/5 w-full">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-            <div className="p-6 bg-white/[0.02] border border-white/5 rounded-3xl hover:bg-white/[0.04] transition-colors">
-              <h3 className="text-white font-bold mb-2">Modern Stack</h3>
-              <p className="text-white/40 text-sm">Built with Next.js App Router, React, and Tailwind CSS for optimal performance.</p>
+            <div className="p-6 bg-bone/[0.02] border border-bone/5 rounded-3xl hover:bg-bone/[0.04] transition-colors">
+              <h3 className="text-bone font-bold mb-2">Modern Stack</h3>
+              <p className="text-bone/40 text-sm">Built with Next.js App Router, React, and Tailwind CSS for optimal performance.</p>
             </div>
-            <div className="p-6 bg-white/[0.02] border border-white/5 rounded-3xl hover:bg-white/[0.04] transition-colors">
-              <h3 className="text-white font-bold mb-2">Cinematic Motion</h3>
-              <p className="text-white/40 text-sm">Smooth, high-end animations powered by GSAP and custom WebGL components.</p>
+            <div className="p-6 bg-bone/[0.02] border border-bone/5 rounded-3xl hover:bg-bone/[0.04] transition-colors">
+              <h3 className="text-bone font-bold mb-2">Cinematic Motion</h3>
+              <p className="text-bone/40 text-sm">Smooth, high-end animations powered by GSAP and custom WebGL components.</p>
             </div>
-            <div className="p-6 bg-white/[0.02] border border-white/5 rounded-3xl hover:bg-white/[0.04] transition-colors">
-              <h3 className="text-white font-bold mb-2">Admin Dashboard</h3>
-              <p className="text-white/40 text-sm">Includes a secure, hidden admin panel connected to a robust database.</p>
+            <div className="p-6 bg-bone/[0.02] border border-bone/5 rounded-3xl hover:bg-bone/[0.04] transition-colors">
+              <h3 className="text-bone font-bold mb-2">Admin Dashboard</h3>
+              <p className="text-bone/40 text-sm">Includes a secure, hidden admin panel connected to a robust database.</p>
             </div>
           </div>
         </div>

@@ -15,6 +15,7 @@ async function isAdmin() {
 }
 
 export async function GET(request) {
+  if (!supabase) return NextResponse.json(null);
   const { searchParams } = new URL(request.url);
   const key = searchParams.get('key');
   let query = supabase.from('settings').select('*');

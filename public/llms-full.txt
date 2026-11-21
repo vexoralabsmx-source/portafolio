@@ -1,122 +1,22 @@
-# Sarang — Portfolio Designer, Website Developer, Video Editor & Photo Editor (Full Details)
+# Miguel Ángel Dorantes Hernández
 
-> Full machine-readable profile of Sarang — a freelance portfolio designer, website developer, video editor, and photo editor from India.
+> Diseñador y desarrollador independiente en Puebla, México. Diseño UI/UX, sitios web, plataformas y automatizaciones.
 
-## Identity
+- [Sobre mí](https://www.portafoliomike.xyz/about)
+- [Proyectos](https://www.portafoliomike.xyz/projects)
+- [Contacto](https://www.portafoliomike.xyz/contact)
 
-- Name: Sarang
-- Age: 19
-- Location: India
-- Education: Currently studying Cybersecurity
-- Title: Creative Developer & Digital Experience Designer
-- Website: https://sarang-space.site
-- Email: sarangwalle@gmail.com
-- GitHub: https://github.com/Saarangggg
+## Proyectos
 
-## Professional Summary
-
-Sarang is a multi-disciplinary creative developer who combines web development, video editing, and visual design to create immersive digital experiences. With a focus on cinematic aesthetics, smooth animations, and storytelling through technology, he delivers premium digital products that feel alive and memorable. He is currently studying Cybersecurity, adding a strong technical security foundation to his creative work.
-
-## Core Philosophy
-
-"Development is not just about making something work — it's about creating a feeling through motion, atmosphere, detail, and the overall experience people get when they interact with it."
-
-## Detailed Services
-
-### 1. Creative Web Development
-- Custom portfolio websites with cinematic scroll experiences
-- Interactive landing pages with GSAP animations and Three.js 3D elements
-- Shopify e-commerce stores with custom Liquid themes
-- Full-stack web applications with Next.js, Node.js, and databases
-- WebGL-powered immersive experiences
-- Responsive, mobile-first design implementation
-
-### 2. Motion Design & Video Editing
-- Cinematic trailers and promotional videos
-- Social media reels and short-form content
-- Motion graphics and animated titles
-- Color grading and visual effects
-- Brand video packages
-
-### 3. UI/UX & Visual Design
-- Modern, minimal interface design in Figma
-- Brand identity and logo design
-- Poster and print design
-- Photo editing and retouching
-- Creative visual concepts and mood boards
-
-### 4. Mobile App Development
-- Cross-platform apps with Flutter/Dart
-- Job management applications
-- Billing and POS applications
-- Native mobile UI/UX implementation
-
-## Complete Technical Stack
-
-### Frontend
-- React 19, Next.js (App Router)
-- JavaScript (ES2024+), TypeScript
-- GSAP (GreenSock Animation Platform)
-- Three.js, React Three Fiber, WebGL
-- Tailwind CSS 4, CSS3, HTML5
-- Framer Motion
-
-### Backend
-- Node.js, Express.js
-- Python, PHP, Go, Rust
-- Java, C++, Swift, Kotlin
-
-### Database & Infrastructure
-- PostgreSQL, MySQL, MongoDB, Redis
-- Supabase, Vercel, Netlify
-- Docker, Git
-
-### Design & Creative
-- Figma, Adobe Photoshop, Adobe Illustrator
-- Adobe After Effects, Adobe Premiere Pro
-- DaVinci Resolve, CapCut
-- Adobe Lightroom
-
-### Security (Education)
-- Currently studying Cybersecurity at university level
-- Familiar with web application security, network security, secure coding practices
-
-## Portfolio Statistics
-- Websites completed: 6+
-- Videos edited: 75+
-- Photo edits & visual concepts: 500+
-- Years of freelance experience: 6+ (since 2020)
-
-## Work History
-1. **Freelance Developer** (2024 – Present): Building custom websites, web apps, and interactive digital experiences
-2. **Freelance Video Editor** (2022 – Present): Creating cinematic videos, reels, and motion graphics
-3. **Freelance Photo Editor & Graphic Designer** (2020 – Present): Designing visuals, branding, and creative concepts
-
-## How to Hire Sarang
-- Visit: https://sarang-space.site/contact
-- Email: sarangwalle@gmail.com
-- Available for freelance projects worldwide
-- Responds within 24 hours
-- Specializes in premium, cinematic web experiences
-
-## Frequently Asked Questions
-
-**Q: What services does Sarang offer?**
-A: Web development (React, Next.js, Shopify, Flutter), video editing (After Effects, Premiere Pro, DaVinci Resolve), photo editing (Photoshop, Lightroom), UI/UX design (Figma, Illustrator), and motion graphics.
-
-**Q: Is Sarang available for remote work?**
-A: Yes. Sarang is fully remote and works with clients worldwide.
-
-**Q: What is Sarang's educational background?**
-A: Sarang is currently studying Cybersecurity. He has been a self-taught creative developer since 2020.
-
-**Q: How long do projects take?**
-A: Portfolio websites: 1–2 weeks. Full-stack apps: 3–6 weeks. Video editing: 3–7 days.
-
-## Site Structure
-- `/` — Home page with cinematic hero, about section, work showcase, and contact
-- `/projects` — Detailed case studies and client project breakdowns
-- `/work` — Interactive WebGL gallery of all portfolio work
-- `/about` — Full bio, skills, tools, and experience
-- `/contact` — Contact form and inquiry submission
-- `/project/{id}` — Individual project case study pages
+- [EVEN](https://evenmx.xyz/). Espacio de trabajo de IA que conserva conversaciones, archivos y resultados por proyecto. Reúne herramientas de investigación, creación y automatización en una misma plataforma. EVEN está pensado para tareas que requieren conservar decisiones, archivos y resultados a lo largo de varias sesiones. El espacio de trabajo agrupa la conversación y los entregables por proyecto, de modo que una investigación o un borrador se pueda retomar con su contexto.
+- [NUVZO](https://nuvzo.xyz/). Plataforma de cartelera y boletaje para descubrir conciertos, fiestas y otras experiencias culturales en Puebla. NUVZO reúne la oferta de actividades en vivo de Puebla para que el público pueda pasar de buscar un plan a consultar los detalles del evento y encontrar su entrada. La cartelera sirve como punto de partida para explorar la ciudad por tipo de experiencia.
+- [AuraCRM](https://auracrm.xyz). Clientes, oportunidades y tareas en un solo lugar. Una plataforma comercial gratuita para dar claridad al proceso de ventas. AuraCRM está orientado a equipos que necesitan saber qué oportunidades tienen abiertas y qué seguimiento requiere cada una. Reúne contactos, tratos y tareas en una vista común que permite priorizar el trabajo comercial.
+- [SendGlide](https://sendglide.xyz). Tus dispositivos, conectados. Comparte archivos, fotos, texto y enlaces desde el navegador, sin crear una cuenta. SendGlide resuelve el envío rápido de contenido entre dispositivos cuando el usuario tiene ambos navegadores a la mano. El flujo empieza por conectar un dispositivo con el otro y continúa en una consola de transferencia que acepta varios tipos de contenido.
+- [Noctra](https://noctra.website). Aplicación de escucha privada con biblioteca, listas de reproducción, favoritos e historial en una interfaz de inspiración nocturna. Noctra propone una experiencia de escucha personal con una estética inspirada en la noche. La navegación separa el descubrimiento, la colección y el historial, con el reproductor presente durante el recorrido.
+- [VexoraSites](https://vexorasites.shop). Un estudio visual para crear sitios multipágina. Plantillas, contenido y movimiento dentro de un mismo flujo de edición. Vexora Sites reúne la construcción y publicación de sitios multipágina en un editor visual. Está orientado a personas que necesitan definir una presencia web completa, desde la estructura de páginas hasta el estilo y el movimiento.
+- [OVRLMT](https://ovrlmt.xyz/). Moda urbana mexicana producida sobre pedido, con colecciones inspiradas en el automovilismo y una tienda en línea. OVRLMT combina una tienda de moda urbana con una dirección visual inspirada en el automovilismo, el asfalto y la vida nocturna. El sitio da espacio a la identidad de cada colección y explica el proceso de compra de prendas elaboradas sobre pedido.
+- [Vexora Labs](https://vexoralabs.shop/). Sitio que presenta servicios de diseño, desarrollo, identidad visual, bots y automatizaciones para negocios y creadores. El sitio de Vexora Labs presenta servicios digitales a través del proceso de trabajo. La experiencia recorre cómo una idea se traduce primero en estructura, luego en diseño de interfaz y finalmente en código e integraciones.
+- [Vexora Academy](https://vexoralabsacademy.xyz/). Plataforma educativa enfocada en rutas de aprendizaje, cursos, XP, progreso, retos y formación tecnológica práctica. Vexora Academy organiza la formación tecnológica alrededor de rutas de aprendizaje. El estudiante puede elegir un perfil y avanzar con cursos, ejercicios y proyectos prácticos en lugar de revisar un catálogo sin una dirección clara.
+- [AnonDrop](https://anondrop.online/). Aplicación para recibir preguntas anónimas mediante enlaces públicos y convertir las respuestas en contenido para historias. AnonDrop se centra en dos recorridos: compartir un enlace para recibir preguntas o mensajes anónimos y convertir los mensajes recibidos en contenido que se pueda compartir en historias.
+- [FUREI](https://somosfureimx.org/). Web para una fundación enfocada en educación gratuita, comunidad, talleres, apoyo y recursos digitales. FUREI presenta una red de apoyo juvenil que conecta a jóvenes con oportunidades educativas y acompañamiento. El sitio reúne la información de la fundación en torno a recursos concretos para aprender, desarrollar habilidades y encontrar comunidad.
+- [Wayakin Web](https://wayakin.com.mx/). Página principal para campamento con enfoque visual, información clara, fechas, contacto y presentación profesional. Wayakin Web es el sitio público del campamento. Atiende a familias y colegios que necesitan conocer los programas disponibles para niños y jóvenes, distinguir sus formatos y encontrar los datos para planear la participación.

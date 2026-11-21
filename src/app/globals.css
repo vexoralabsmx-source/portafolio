@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
 @theme {
+  --color-bone: #f3efe7;
   --font-sans: var(--font-inter);
   --font-serif: var(--font-playfair);
 }
 
 :root {
-  --orange: #ff6b1a;
+  --orange: #e1251b;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -23,7 +24,7 @@ html, body {
   margin: 0;
   padding: 0;
   background: #080808;
-  color: #fff;
+  color: var(--color-bone);
   font-family: var(--font-inter), "Inter", sans-serif;
   overflow-x: hidden;
 }
@@ -49,7 +50,7 @@ html::-webkit-scrollbar { display: none; }
   font-style: italic;
   font-weight: 400;
   color: transparent;
-  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.45);
+  -webkit-text-stroke: 1.5px rgba(243, 239, 231, 0.45);
   letter-spacing: -0.01em;
 }
 
@@ -59,7 +60,7 @@ html::-webkit-scrollbar { display: none; }
   font-style: italic;
   font-weight: 400;
   color: transparent;
-  -webkit-text-stroke: 1.2px #ff6b1a;
+  -webkit-text-stroke: 1.2px #e1251b;
   letter-spacing: -0.01em;
 }
 
@@ -82,23 +83,23 @@ html::-webkit-scrollbar { display: none; }
 /* ── Custom slim scrollbar for dropdowns & panels ─────────────── */
 .custom-scroll {
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 107, 26, 0.4) transparent;
+  scrollbar-color: rgba(225, 37, 27, 0.4) transparent;
 }
 .custom-scroll::-webkit-scrollbar { width: 4px; }
 .custom-scroll::-webkit-scrollbar-track { background: transparent; }
 .custom-scroll::-webkit-scrollbar-thumb {
-  background: rgba(255, 107, 26, 0.35);
+  background: rgba(225, 37, 27, 0.35);
   border-radius: 99px;
 }
 .custom-scroll::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 107, 26, 0.65);
+  background: rgba(225, 37, 27, 0.65);
 }
 
 /* Admin panel scrollbar */
-.admin-cursor { scrollbar-width: thin; scrollbar-color: rgba(255,107,26,0.3) transparent; }
+.admin-cursor { scrollbar-width: thin; scrollbar-color: rgba(225, 37, 27,0.3) transparent; }
 .admin-cursor::-webkit-scrollbar { width: 4px; }
 .admin-cursor::-webkit-scrollbar-track { background: transparent; }
-.admin-cursor::-webkit-scrollbar-thumb { background: rgba(255,107,26,0.3); border-radius: 99px; }
+.admin-cursor::-webkit-scrollbar-thumb { background: rgba(225, 37, 27,0.3); border-radius: 99px; }
 
 /* ── Bottom blur fade — masks bottom edge of page ─────────────── */
 .bottom-blur {
@@ -148,7 +149,7 @@ html::-webkit-scrollbar { display: none; }
 
 /* ── Utilities to remove inline styles ──────── */
 .hero-clamp-text {
-  font-size: clamp(5rem, 15vw, 13rem);
+  font-size: clamp(1.75rem, 8.8vw, 10rem);
 }
 
 .hero-perspective {
@@ -236,5 +237,169 @@ html::-webkit-scrollbar { display: none; }
   .admin-main {
     margin-left: 0 !important;
     padding-top: 80px !important;
+  }
+}
+/* Five layers share one camera and retain their first frame while a clip buffers. */
+.cinematic-home {
+  isolation: isolate;
+  --cinematic-amber: #fb9a61;
+}
+
+.cinematic-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background: #080808;
+}
+
+.cinematic-light, .cinematic-shade {
+  position: absolute;
+  inset: 0;
+}
+
+.cinematic-light {
+  background: radial-gradient(ellipse at 78% 48%, #ad542329, transparent 66%);
+}
+
+.cinematic-screen {
+  position: absolute;
+  top: 50%;
+  right: -5%;
+  width: min(80vw, 160vh);
+  aspect-ratio: 16 / 9;
+  transform: translateY(-50%);
+  mask-image: linear-gradient(transparent, black 13%, black 84%, transparent);
+}
+
+.cinematic-frame, .cinematic-frame video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.cinematic-frame {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.cinematic-frame:first-child {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cinematic-frame video {
+  object-fit: contain;
+  opacity: 0;
+}
+
+.cinematic-shade {
+  background:
+    linear-gradient(90deg, #080808 4%, #080808ed 23%, #08080870 45%, transparent 67%),
+    linear-gradient(0deg, #080808 0%, transparent 24%, transparent 82%, #080808 100%);
+}
+
+.cinematic-copy {
+  position: relative;
+  z-index: 1;
+}
+
+.cinematic-kicker {
+  margin-bottom: 1rem;
+  color: var(--cinematic-amber);
+  font-size: .6875rem;
+  font-weight: 700;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+}
+
+.cinematic-heading {
+  font-size: clamp(3rem, 6vw, 6rem);
+  font-weight: 900;
+  line-height: .94;
+  letter-spacing: -.075em;
+}
+
+.cinematic-project {
+  overflow: hidden;
+  border: 1px solid #f3efe733;
+  border-radius: .5rem;
+  background: #101010e8;
+  color: #f3efe7;
+  transition: border-color .2s ease, color .2s ease;
+}
+
+.cinematic-project img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1200 / 630;
+  object-fit: cover;
+}
+
+.cinematic-project:focus-visible {
+  outline: 2px solid var(--cinematic-amber);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cinematic-project:hover {
+    border-color: var(--cinematic-amber);
+    color: var(--cinematic-amber);
+  }
+}
+
+#cinematic-footer {
+  background: #080808;
+}
+
+body:has(.project-detail) > .bottom-blur {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .cinematic-screen {
+    right: 0;
+    width: min(85vw, 140vh);
+  }
+}
+
+@media (max-width: 767px) {
+  .cinematic-screen {
+    top: 3.75rem;
+    right: 0;
+    width: 100%;
+    transform: none;
+  }
+
+  .cinematic-shade {
+    background: linear-gradient(0deg, #080808 0%, #080808 54%, transparent 80%);
+  }
+
+  .cinematic-section {
+    padding-top: calc(56.25vw + 5rem);
+  }
+
+  #hero-section {
+    justify-content: flex-start;
+  }
+
+  .cinematic-home .bottom-blur {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cinematic-home .cinematic-frame {
+    transform: none !important;
+  }
+
+  .cinematic-home .footer-hidden {
+    transition: none;
   }
 }

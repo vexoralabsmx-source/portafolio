@@ -16,7 +16,7 @@ const round = (v, precision = 3) => parseFloat(v.toFixed(precision));
 const adjust = (v, fMin, fMax, tMin, tMax) => round(tMin + ((tMax - tMin) * (v - fMin)) / (fMax - fMin));
 
 const ProfileCardComponent = ({
-  avatarUrl = '/photo/about me.webp',
+  avatarUrl = '/photo/miguel-mark.png',
   iconUrl = '',
   grainUrl = '',
   innerGradient,
@@ -28,10 +28,10 @@ const ProfileCardComponent = ({
   enableMobileTilt = false,
   mobileTiltSensitivity = 5,
   miniAvatarUrl,
-  name = 'Sarang',
-  title = 'Creative Developer & Designer',
-  handle = 'sarang',
-  status = 'Available for Hire',
+  name = 'Miguel Ángel',
+  title = 'Diseñador y desarrollador creativo',
+  handle = 'portafoliomike',
+  status = 'Disponible para proyectos',
   contactText = 'Hire Me',
   showUserInfo = true,
   onContactClick
@@ -294,7 +294,7 @@ const ProfileCardComponent = ({
       '--icon': iconUrl ? `url(${iconUrl})` : 'none',
       '--grain': grainUrl ? `url(${grainUrl})` : 'none',
       '--inner-gradient': innerGradient ?? DEFAULT_INNER_GRADIENT,
-      '--behind-glow-color': behindGlowColor ?? 'rgba(255, 107, 26, 0.4)', // Use Sarang's brand orange color as backing glow!
+      '--behind-glow-color': behindGlowColor ?? 'rgba(225, 37, 27, 0.4)',
       '--behind-glow-size': behindGlowSize ?? '50%'
     }),
     [iconUrl, grainUrl, innerGradient, behindGlowColor, behindGlowSize]
@@ -349,7 +349,7 @@ const ProfileCardComponent = ({
                     onClick={handleContactClick}
                     style={{ pointerEvents: 'auto' }}
                     type="button"
-                    aria-label={`Contact ${name || 'user'}`}
+                    aria-label={`Contactar a ${name || 'esta persona'}`}
                   >
                     {contactText}
                   </button>

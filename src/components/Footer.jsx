@@ -1,11 +1,12 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { NAME, LOCATION, ROLE, WHATSAPP_URL } from "@/lib/portfolio";
 import { trackClick } from "@/lib/trackClick";
 
 const LINKS = [
-  { label: "About",   href: "/about"   },
-  { label: "Contact", href: "/contact" },
+  { label: "Sobre mí",   href: "/about"   },
+  { label: "Contacto", href: "/contact" },
 ];
 
 const SOCIAL_KEYS = [
@@ -21,7 +22,7 @@ const SOCIAL_KEYS = [
 
 export default function Footer() {
   const ref = useRef(null);
-  const [socials, setSocials] = useState([]);
+  const [socials, setSocials] = useState([{ label: "WhatsApp", href: WHATSAPP_URL }]);
 
   useEffect(() => {
     fetch("/api/settings?key=social_links")
@@ -32,7 +33,7 @@ export default function Footer() {
           label: s.label,
           href:  data.value[s.key].trim(),
         }));
-        setSocials(active);
+        setSocials([...active.filter(({ label }) => label !== "WhatsApp"), { label: "WhatsApp", href: WHATSAPP_URL }]);
       })
       .catch(() => {});
   }, []);
@@ -61,21 +62,21 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer ref={ref} className="relative border-t border-white/8 px-10 md:px-20 py-16">
+    <footer ref={ref} className="relative border-t border-bone/8 px-10 md:px-20 py-16">
 
       {/* top row */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-12 mb-16">
 
         {/* name + tagline */}
         <div>
-          <p className="text-[10px] text-[#ff6b1a] tracking-[0.5em] uppercase mb-4 font-medium">
-            Creative Developer
+          <p className="text-[10px] text-[#e1251b] tracking-[0.5em] uppercase mb-4 font-medium">
+            {ROLE}
           </p>
           <h2
             className="font-black tracking-tighter leading-[0.85]"
             style={{ fontSize: "clamp(3rem, 8vw, 7rem)" }}
           >
-            <span className="block text-white">Sarang</span>
+            <span className="block text-bone">Miguel Ángel</span>
           </h2>
         </div>
 
@@ -86,7 +87,7 @@ export default function Footer() {
               <Link
                 key={href}
                 href={href}
-                className="text-white/40 hover:text-[#ff6b1a] transition-colors duration-300"
+                className="text-bone/40 hover:text-[#e1251b] transition-colors duration-300"
               >
                 {label}
               </Link>
@@ -102,7 +103,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackClick(`social-${label.toLowerCase()}`, href)}
-                  className="text-white/25 hover:text-white/70 transition-colors duration-300"
+                  className="text-bone/25 hover:text-bone/70 transition-colors duration-300"
                 >
                   {label}
                 </a>
@@ -113,18 +114,18 @@ export default function Footer() {
       </div>
 
       {/* divider */}
-      <div className="w-full h-px bg-white/8 mb-8" />
+      <div className="w-full h-px bg-bone/8 mb-8" />
 
       {/* bottom row */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <p
-          className="text-[10px] text-white/20 tracking-widest"
+          className="text-[10px] text-bone/20 tracking-widest"
           style={{ fontFamily: '"Times New Roman", Times, serif', fontStyle: "italic" }}
         >
-          sarangwalle@gmail.com
+          {LOCATION}
         </p>
-        <p className="text-[10px] text-white/15 tracking-[0.3em] uppercase">
-          © {new Date().getFullYear()} Sarang Walle. All rights reserved.
+        <p className="text-[10px] text-bone/15 tracking-[0.3em] uppercase">
+          © {new Date().getFullYear()} {NAME}.
         </p>
       </div>
 

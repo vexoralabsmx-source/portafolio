@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { jwtVerify } from 'jose';
+import { FALLBACK_PROJECTS } from "@/app/work/content";
 import { supabase } from '@/lib/supabase';
 
 async function isAdmin() {
@@ -21,6 +22,12 @@ export async function GET(request) {
   const admin = await isAdmin();
   const category = searchParams.get('category');
 
+  const savedProjects = category && category !== 'All'
+    ? FALLBACK_PROJECTS.filter((project) => project.category === category)
+    : FALLBACK_PROJECTS;
+
+  if (!supabase) return NextResponse.json(admin ? [] : savedProjects);
+
   let query = supabase
     .from('works')
     .select('*')
@@ -40,7 +47,7 @@ export async function GET(request) {
     console.error('[GET /api/works]', error.message);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
-  return NextResponse.json(works || []);
+  return NextResponse.json(works?.length || admin ? (works || []) : savedProjects);
 }
 
 export async function POST(request) {

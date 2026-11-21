@@ -3,6 +3,9 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import dynamic from "next/dynamic";
+import Link from "next/link";
+
+const CATEGORY_LABELS = { ALL: "Todos", WEBSITE: "Sitios web", DESIGNS: "Diseño", SISTEMAS: "Sistemas", PHOTOS: "Fotos", VIDEOS: "Videos" };
 
 const CircularGallery = dynamic(
   () => import("@/components/CircularGallery/CircularGallery"),
@@ -31,7 +34,7 @@ function MagneticCTA({ href, children }) {
         ref.current.style.transform = `translate(${(e.clientX - b.left - b.width / 2) * 0.25}px,${(e.clientY - b.top - b.height / 2) * 0.25}px)`;
       }}
       onMouseLeave={() => { ref.current.style.transform = "translate(0,0)"; }}
-      className="inline-flex items-center gap-3 px-7 py-3.5 bg-[#ff6b1a] text-black font-black rounded-xl text-[10px] uppercase tracking-[0.25em] hover:bg-[#ff8c42] will-change-transform"
+      className="inline-flex items-center gap-3 px-7 py-3.5 bg-[#e1251b] text-black font-black rounded-xl text-[10px] uppercase tracking-[0.25em] hover:bg-[#f0463d] will-change-transform"
       style={{ transition: "transform 0.2s cubic-bezier(.23,1,.32,1), background-color 0.3s" }}
     >
       {children}
@@ -123,7 +126,7 @@ function ProjectShowcase({ items, startIdx, onClose }) {
                 <img ref={imgRef} src={current.image} alt={current.text} className="w-full h-full object-cover will-change-transform" style={{ transform: "scale(1.02)", transition: "transform 0.4s cubic-bezier(.23,1,.32,1)" }} />
               )
             ) : (
-              <div className="w-full h-full bg-white/[0.03]" />
+              <div className="w-full h-full bg-bone/[0.03]" />
             )}
             <div className="absolute inset-0 hidden md:block" style={{ background: "linear-gradient(90deg, transparent 55%, #060606 100%)" }} />
             <div className="absolute inset-0 md:hidden" style={{ background: "linear-gradient(180deg, transparent 40%, #060606 100%)" }} />
@@ -135,18 +138,18 @@ function ProjectShowcase({ items, startIdx, onClose }) {
 
             <motion.div className="flex items-center gap-3 mb-8"
               initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }}>
-              <span className="text-[#ff6b1a] font-mono text-xs font-black tracking-[0.3em]">{String(idx + 1).padStart(2, "0")}</span>
-              <div className="w-10 h-px bg-white/10" />
-              <span className="text-white/20 font-mono text-xs tracking-[0.3em]">{String(items.length).padStart(2, "0")}</span>
+              <span className="text-[#e1251b] font-mono text-xs font-black tracking-[0.3em]">{String(idx + 1).padStart(2, "0")}</span>
+              <div className="w-10 h-px bg-bone/10" />
+              <span className="text-bone/20 font-mono text-xs tracking-[0.3em]">{String(items.length).padStart(2, "0")}</span>
             </motion.div>
 
             <motion.span className="inline-block self-start px-3.5 py-1 rounded-full text-[8px] font-black uppercase tracking-[0.4em] mb-5 border"
-              style={{ background: "rgba(255,107,26,0.08)", borderColor: "rgba(255,107,26,0.15)", color: "#ff6b1a" }}
+              style={{ background: "rgba(225, 37, 27,0.08)", borderColor: "rgba(225, 37, 27,0.15)", color: "#e1251b" }}
               initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}>
               {current.category}
             </motion.span>
 
-            <motion.h1 className="font-black text-white leading-[0.95] tracking-[-0.04em] mb-5"
+            <motion.h1 className="font-black text-bone leading-[0.95] tracking-[-0.04em] mb-5"
               style={{ fontSize: "clamp(2rem, 4.5vw, 4.2rem)" }}
               initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.6, ease: [0.76, 0, 0.24, 1] }}>
@@ -154,7 +157,7 @@ function ProjectShowcase({ items, startIdx, onClose }) {
             </motion.h1>
 
             {current.description && (
-              <motion.p className="text-[13px] text-white/35 font-light leading-[1.8] mb-8 max-w-sm"
+              <motion.p className="text-[13px] text-bone/35 font-light leading-[1.8] mb-8 max-w-sm"
                 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
                 {current.description}
               </motion.p>
@@ -164,7 +167,7 @@ function ProjectShowcase({ items, startIdx, onClose }) {
               <motion.div className="flex flex-wrap gap-1.5 mb-8"
                 initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55 }}>
                 {current.tech.split("·").map((t, i) => (
-                  <span key={i} className="px-3 py-1.5 bg-white/[0.03] border border-white/[0.06] rounded-lg text-[9px] text-white/30 tracking-[0.15em] uppercase">
+                  <span key={i} className="px-3 py-1.5 bg-bone/[0.03] border border-bone/[0.06] rounded-lg text-[9px] text-bone/30 tracking-[0.15em] uppercase">
                     {t.trim()}
                   </span>
                 ))}
@@ -175,18 +178,18 @@ function ProjectShowcase({ items, startIdx, onClose }) {
               {current.id && (
                 <button
                   onClick={() => { onClose(); router.push(`/project/${current.id}`); }}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 border border-white/15 text-white/60 hover:text-white hover:border-white/40 rounded-full text-[9px] uppercase tracking-[0.3em] font-bold transition-all duration-200"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 border border-bone/15 text-bone/60 hover:text-bone hover:border-bone/40 rounded-full text-[9px] uppercase tracking-[0.3em] font-bold transition-all duration-200"
                 >
-                  Full Details
+                  Ver ficha
                   <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 8L8 2M8 2H4M8 2v4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/></svg>
                 </button>
               )}
-              {current.link && <MagneticCTA href={current.link}>View Live</MagneticCTA>}
+              {current.link && <MagneticCTA href={current.link}>Visitar sitio</MagneticCTA>}
             </motion.div>
 
-            <motion.p className="mt-auto pt-6 text-[8px] text-white/10 tracking-[0.5em] uppercase"
+            <motion.p className="mt-auto pt-6 text-[8px] text-bone/10 tracking-[0.5em] uppercase"
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.7 }}>
-              {current.category} Collection · {items.length} works
+              {CATEGORY_LABELS[current.category?.toUpperCase()] || current.category} · {items.length} proyectos
             </motion.p>
           </motion.div>
         </motion.div>
@@ -195,37 +198,37 @@ function ProjectShowcase({ items, startIdx, onClose }) {
       {/* Side dots */}
       <div className="fixed right-5 md:right-8 top-1/2 -translate-y-1/2 z-[120] flex flex-col items-center gap-3">
         <button onClick={() => go(idx - 1)} disabled={idx === 0}
-          className={`p-2 rounded-full border backdrop-blur-sm transition-all duration-300 ${idx === 0 ? "border-white/[0.04] text-white/[0.08] cursor-default" : "border-white/10 text-white/30 hover:text-white hover:bg-white/5"}`}>
+          className={`p-2 rounded-full border backdrop-blur-sm transition-all duration-300 ${idx === 0 ? "border-bone/[0.04] text-bone/[0.08] cursor-default" : "border-bone/10 text-bone/30 hover:text-bone hover:bg-bone/5"}`}>
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 7.5l3.5-3.5 3.5 3.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </button>
         <div className="flex flex-col gap-[6px] py-2">
           {items.map((_, i) => (
             <button key={i} onClick={() => go(i)} title={items[i]?.text} className="flex items-center justify-center">
               <motion.div className="rounded-full"
-                animate={{ width: i === idx ? 6 : 4, height: i === idx ? 18 : 4, backgroundColor: i === idx ? "#ff6b1a" : "rgba(255,255,255,0.12)" }}
+                animate={{ width: i === idx ? 6 : 4, height: i === idx ? 18 : 4, backgroundColor: i === idx ? "#e1251b" : "rgba(255,255,255,0.12)" }}
                 transition={{ duration: 0.35, ease: [0.76, 0, 0.24, 1] }} />
             </button>
           ))}
         </div>
         <button onClick={() => go(idx + 1)} disabled={idx === items.length - 1}
-          className={`p-2 rounded-full border backdrop-blur-sm transition-all duration-300 ${idx === items.length - 1 ? "border-white/[0.04] text-white/[0.08] cursor-default" : "border-white/10 text-white/30 hover:text-white hover:bg-white/5"}`}>
+          className={`p-2 rounded-full border backdrop-blur-sm transition-all duration-300 ${idx === items.length - 1 ? "border-bone/[0.04] text-bone/[0.08] cursor-default" : "border-bone/10 text-bone/30 hover:text-bone hover:bg-bone/5"}`}>
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 4.5l3.5 3.5 3.5-3.5" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </button>
       </div>
 
       {/* Close */}
       <button onClick={onClose}
-        className="fixed top-6 left-6 md:left-auto md:right-20 z-[120] flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 text-white/30 hover:text-white hover:bg-white/5 text-[9px] tracking-[0.4em] uppercase transition-all backdrop-blur-sm">
+        className="fixed top-6 left-6 md:left-auto md:right-20 z-[120] flex items-center gap-2 px-4 py-2 rounded-full border border-bone/10 text-bone/30 hover:text-bone hover:bg-bone/5 text-[9px] tracking-[0.4em] uppercase transition-all backdrop-blur-sm">
         <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
           <path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
         </svg>
-        Close
+        Cerrar
       </button>
 
       <div className="fixed bottom-5 right-24 z-[120] hidden md:flex items-center gap-3">
-        <span className="text-[7px] text-white/10 tracking-[0.4em] uppercase">↑↓ Navigate</span>
-        <div className="w-px h-2.5 bg-white/[0.06]" />
-        <span className="text-[7px] text-white/10 tracking-[0.4em] uppercase">ESC Close</span>
+        <span className="text-[7px] text-bone/10 tracking-[0.4em] uppercase">↑↓ Navegar</span>
+        <div className="w-px h-2.5 bg-bone/[0.06]" />
+        <span className="text-[7px] text-bone/10 tracking-[0.4em] uppercase">ESC Cerrar</span>
       </div>
     </motion.div>
   );
@@ -246,6 +249,7 @@ export default function ProjectsPage() {
   const getInitialCategory = () => {
     if (!catParam) return "ALL";
     const c = catParam.toLowerCase();
+    if (c === "sistemas") return "SISTEMAS";
     if (c.includes("web") || c.includes("site")) return "WEBSITE";
     if (c.includes("design") || c.includes("poster") || c.includes("photo") || c.includes("pic")) return "DESIGNS";
     if (c.includes("video") || c.includes("motion") || c.includes("film") || c.includes("edit")) return "VIDEOS";
@@ -261,6 +265,7 @@ export default function ProjectsPage() {
         if (data && data.length > 0) {
           const normalizeCategory = (cat) => {
             const c = (cat || "").toLowerCase();
+            if (c === "sistemas") return "Sistemas";
             if (c.includes("web") || c.includes("site")) return "Website";
             if (c.includes("design") || c.includes("poster") || c.includes("ui") || c.includes("graphic")) return "Designs";
             if (c.includes("photo") || c.includes("image") || c.includes("pic")) return "Photos";
@@ -314,14 +319,26 @@ export default function ProjectsPage() {
     }
   }, [filteredFull, allFull, router]);
 
-  const categories = ["ALL", "WEBSITE", "DESIGNS", "PHOTOS", "VIDEOS"];
+  const categories = ["ALL", "WEBSITE", "DESIGNS", "SISTEMAS", "PHOTOS", "VIDEOS"];
 
   return (
     <>
       <section className="relative w-full overflow-hidden" style={{ height: "100svh" }}>
         {/* Gallery */}
         <div className="absolute inset-0">
-          {items !== null && items.length > 0 ? (
+          {filteredFull?.length === 1 ? (
+            <div className="flex h-full items-center justify-center px-6">
+              <Link
+                href={`/project/${filteredFull[0].id}`}
+                className="group relative z-20 w-full max-w-sm overflow-hidden rounded-xl border border-bone/20 bg-[#101010] focus-visible:outline-2 focus-visible:outline-[#e1251b]"
+              >
+                <img src={filteredFull[0].image} alt="" className="aspect-video w-full object-cover" />
+                <span className="block px-5 py-4 text-sm font-semibold text-bone group-hover:text-[#e1251b]">
+                  {filteredFull[0].text}
+                </span>
+              </Link>
+            </div>
+          ) : items !== null && items.length > 1 ? (
             <CircularGallery
               key={activeCategory}
               items={items}
@@ -336,8 +353,8 @@ export default function ProjectsPage() {
               spinTimestamp={spinRequest.timestamp}
             />
           ) : items !== null && items.length === 0 ? (
-            <div className="flex items-center justify-center w-full h-full text-white/30 text-xs tracking-[0.3em] uppercase">
-              No projects found in this category.
+            <div className="flex items-center justify-center w-full h-full text-bone/30 text-xs tracking-[0.3em] uppercase">
+              Esta categoría no tiene proyectos.
             </div>
           ) : null}
         </div>
@@ -347,57 +364,57 @@ export default function ProjectsPage() {
 
         {/* Heading — desktop only */}
         <div className="hidden md:block absolute top-0 left-0 px-6 md:px-20 pt-24 md:pt-28 pointer-events-none z-20">
-          <p className="font-sans text-[10px] text-[#ff6b1a] tracking-[0.5em] uppercase mb-2 md:mb-3 font-medium">
-            Creative
+          <p className="font-sans text-[10px] text-[#e1251b] tracking-[0.5em] uppercase mb-2 md:mb-3 font-medium">
+            Trabajo seleccionado
           </p>
           <h1
-            className="font-sans font-black tracking-tighter text-white leading-none"
+            className="font-sans font-black tracking-tighter text-bone leading-none"
             style={{ fontSize: "clamp(2rem, 8vw, 8rem)" }}
           >
-            Archive.
+            Proyectos.
           </h1>
         </div>
 
         {/* Mobile: section title in top nav area */}
         <div className="md:hidden absolute top-0 left-0 right-0 px-6 pt-20 pointer-events-none z-20 flex items-center justify-between">
           <div>
-            <p className="text-[9px] text-[#ff6b1a] tracking-[0.4em] uppercase font-medium">Creative</p>
-            <p className="text-white font-black tracking-tighter text-2xl leading-none">
-              {activeCategory === "ALL" ? "Archive." : activeCategory.charAt(0) + activeCategory.slice(1).toLowerCase()}
+            <p className="text-[9px] text-[#e1251b] tracking-[0.4em] uppercase font-medium">Trabajo seleccionado</p>
+            <p className="text-bone font-black tracking-tighter text-2xl leading-none">
+              {activeCategory === "ALL" ? "Proyectos." : CATEGORY_LABELS[activeCategory]}
             </p>
           </div>
         </div>
 
         {/* Filters — desktop: top right | mobile: bottom bar */}
-        <div className="hidden md:flex absolute top-[8.5rem] right-20 z-30 gap-6 items-center pointer-events-auto">
+        <div className="hidden lg:flex absolute top-[8.5rem] right-10 xl:right-20 z-30 gap-4 xl:gap-6 items-center pointer-events-auto">
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => handleCategoryClick(cat)}
-              className={`text-[11px] uppercase tracking-[0.2em] font-bold transition-all duration-300 relative ${activeCategory === cat ? "text-[#ff6b1a]" : "text-white/40 hover:text-white"}`}
+              className={`text-[11px] uppercase tracking-[0.2em] font-bold transition-all duration-300 relative ${activeCategory === cat ? "text-[#e1251b]" : "text-bone/40 hover:text-bone"}`}
             >
-              {cat}
+              {CATEGORY_LABELS[cat]}
               {activeCategory === cat && (
-                <motion.div layoutId="activeFilter" className="absolute -bottom-2 left-0 right-0 h-0.5 bg-[#ff6b1a]" />
+                <motion.div layoutId="activeFilter" className="absolute -bottom-2 left-0 right-0 h-0.5 bg-[#e1251b]" />
               )}
             </button>
           ))}
         </div>
 
         {/* Mobile filters — bottom */}
-        <div className="md:hidden absolute bottom-[6vh] left-0 right-0 z-30 flex justify-center gap-4 px-4 pointer-events-auto">
-          <div className="flex items-center gap-3 bg-black/60 backdrop-blur-md border border-white/10 rounded-full px-5 py-2.5">
+        <div className="lg:hidden absolute bottom-[6vh] left-0 right-0 z-30 flex justify-center gap-4 px-4 pointer-events-auto">
+          <div className="flex flex-wrap justify-center items-center gap-x-3 gap-y-2 bg-black/60 backdrop-blur-md border border-bone/10 rounded-2xl px-4 py-2.5">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => handleCategoryClick(cat)}
                 className={`text-[9px] uppercase tracking-[0.15em] font-bold transition-all duration-200 relative ${
-                  activeCategory === cat ? "text-[#ff6b1a]" : "text-white/35 hover:text-white"
+                  activeCategory === cat ? "text-[#e1251b]" : "text-bone/35 hover:text-bone"
                 }`}
               >
-                {cat}
+                {CATEGORY_LABELS[cat]}
                 {activeCategory === cat && (
-                  <motion.div layoutId="activeFilterMobile" className="absolute -bottom-1.5 left-0 right-0 h-[1.5px] bg-[#ff6b1a]" />
+                  <motion.div layoutId="activeFilterMobile" className="absolute -bottom-1.5 left-0 right-0 h-[1.5px] bg-[#e1251b]" />
                 )}
               </button>
             ))}
@@ -405,23 +422,23 @@ export default function ProjectsPage() {
         </div>
 
         {/* Simple Drag / Swipe Indicator — desktop only */}
-        <div className="absolute bottom-[3vh] left-1/2 -translate-x-1/2 pointer-events-none z-20 hidden md:flex items-center gap-4 opacity-100">
+        {items?.length > 1 && <div className="absolute bottom-[3vh] left-1/2 -translate-x-1/2 pointer-events-none z-20 hidden lg:flex items-center gap-4 opacity-100">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" className="opacity-70">
             <path d="M19 12H5M5 12L12 19M5 12L12 5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
 
-          <div className="w-14 h-6 rounded-full border border-white/50 flex items-center justify-center relative bg-black/40 backdrop-blur-md">
+          <div className="w-14 h-6 rounded-full border border-bone/50 flex items-center justify-center relative bg-black/40 backdrop-blur-md">
             <motion.div
               animate={{ x: [-8, 8, -8] }}
               transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-              className="w-1.5 h-1.5 bg-[#ff6b1a] rounded-full"
+              className="w-1.5 h-1.5 bg-[#e1251b] rounded-full"
             />
           </div>
 
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" className="opacity-70">
             <path d="M5 12H19M19 12L12 19M19 12L12 5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-        </div>
+        </div>}
       </section>
 
 

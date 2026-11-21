@@ -12,6 +12,7 @@ export default function About({ standalone = false }) {
   const ref = useRef(null);
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const ctx = gsap.context(() => {
       if (standalone) {
         gsap.from(".about-label", { y: 25, opacity: 0, duration: 0.6, delay: 0.4 });
@@ -56,13 +57,13 @@ export default function About({ standalone = false }) {
     <section
       id="about-section"
       ref={ref}
-      className={`relative w-full min-h-screen px-10 md:px-20 ${standalone ? "" : "z-20"}`}
+      className={`relative w-full min-h-screen px-10 md:px-20 ${standalone ? "" : "cinematic-section z-20"}`}
     >
       {standalone && (
         <div className="about-img absolute inset-0 z-0">
           <Image
-            src="/photo/about me.webp"
-            alt="Sarang"
+            src="/photo/miguel-cover.png"
+            alt=""
             fill
             className="object-cover object-center"
             priority
@@ -75,8 +76,8 @@ export default function About({ standalone = false }) {
       <div className="relative z-10 w-full min-h-screen flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20 py-32">
 
         {/* Left Bio */}
-        <div className={`w-full lg:w-[55%] max-w-2xl flex flex-col ${standalone ? "ml-auto lg:pr-10 text-right items-end" : "mr-auto text-left items-start"}`}>
-          <p className="about-label text-[10px] text-[#ff6b1a] tracking-[0.5em] uppercase mb-6 font-medium">
+        <div className={`w-full lg:w-[55%] max-w-2xl flex flex-col ${standalone ? "ml-auto lg:pr-10 text-right items-end" : "cinematic-copy mr-auto text-left items-start"}`}>
+          <p className="about-label text-[10px] text-[#e1251b] tracking-[0.5em] uppercase mb-6 font-medium">
             {SECTION.label}
           </p>
 
@@ -84,8 +85,8 @@ export default function About({ standalone = false }) {
             className="about-h font-black tracking-tighter leading-[0.88] mb-8"
             style={{ fontSize: "clamp(2.5rem, 7vw, 6.5rem)" }}
           >
-            <span className="block text-white">{HEADING.line1}</span>
-            <span className="block text-white">{HEADING.line2}</span>
+            <span className="block text-bone">{HEADING.line1}</span>
+            <span className="block text-bone">{HEADING.line2}</span>
             <span className="block ghost">{HEADING.line3}</span>
           </h2>
 
@@ -97,7 +98,7 @@ export default function About({ standalone = false }) {
               animateBy="words"
               direction="bottom"
               stepDuration={0.22}
-              className={`about-p text-sm md:text-base text-white/50 max-w-lg ${i < BIO.length - 1 ? "mb-6" : "mb-4"} font-light leading-relaxed ${standalone ? "text-right" : ""}`}
+              className={`about-p text-sm md:text-base text-bone/80 max-w-lg ${i < BIO.length - 1 ? "mb-6" : "mb-4"} font-light leading-relaxed ${standalone ? "text-right" : ""}`}
             />
           ))}
 
@@ -106,9 +107,9 @@ export default function About({ standalone = false }) {
               href={RESUME_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-[#ff6b1a]/30 text-[#ff6b1a] text-xs font-bold uppercase tracking-widest rounded-full hover:bg-[#ff6b1a] hover:text-black transition-colors duration-300"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-[#e1251b]/30 text-[#e1251b] text-xs font-bold uppercase tracking-widest rounded-full hover:bg-[#e1251b] hover:text-black transition-colors duration-300"
             >
-              View Resume
+              Conoce mi trayectoria
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14M12 5l7 7-7 7"/>
               </svg>
@@ -116,18 +117,18 @@ export default function About({ standalone = false }) {
           </div>
         </div>
 
-        {/* Right Skills & Experience */}
-        <div className={`w-full lg:w-[40%] max-w-md mt-10 lg:mt-0 flex flex-col ${standalone ? "mr-auto lg:items-start lg:text-left" : "ml-auto items-end text-right"}`}>
-          <div className="about-p w-12 h-px bg-white/15 mb-8 lg:mb-10" />
+        {/* Right Skills & Formación */}
+        {standalone && <div className={`w-full lg:w-[40%] max-w-md mt-10 lg:mt-0 flex flex-col ${standalone ? "mr-auto lg:items-start lg:text-left" : "ml-auto items-end text-right"}`}>
+          <div className="about-p w-12 h-px bg-bone/15 mb-8 lg:mb-10" />
 
           <div className="flex flex-col gap-10 w-full">
             <div className="w-full">
               <p className={`about-p text-[10px] tracking-[0.4em] uppercase mb-6 ${standalone ? "text-left" : "text-right"}`}>
-                <span className="border-b border-white/30 pb-2 inline-block text-white/50">Tech I Work With</span>
+                <span className="border-b border-bone/30 pb-2 inline-block text-bone/50">Tecnologías</span>
               </p>
               <div className={`flex gap-2 flex-wrap ${standalone ? "justify-start" : "justify-end"}`}>
                 {TECH.map((s) => (
-                  <span key={s.name} className="group about-skill px-4 py-2 flex items-center gap-2 border border-white/12 rounded-full text-[10px] text-white/35 tracking-widest uppercase transition-colors duration-300 hover:bg-white hover:text-[#ff6b1a] hover:border-white cursor-default">
+                  <span key={s.name} className="group about-skill px-4 py-2 flex items-center gap-2 border border-bone/12 rounded-full text-[10px] text-bone/35 tracking-widest uppercase transition-colors duration-300 hover:bg-bone hover:text-[#e1251b] hover:border-bone cursor-default">
                     <s.icon className="w-3 h-3 transition-all duration-300 fill-transparent stroke-current stroke-[1.5px] group-hover:fill-current group-hover:stroke-transparent" />
                     {s.name}
                   </span>
@@ -137,11 +138,11 @@ export default function About({ standalone = false }) {
 
             <div className="w-full">
               <p className={`about-p text-[10px] tracking-[0.4em] uppercase mb-6 ${standalone ? "text-left" : "text-right"}`}>
-                <span className="border-b border-white/30 pb-2 inline-block text-white/50">Creative Tools</span>
+                <span className="border-b border-bone/30 pb-2 inline-block text-bone/50">Áreas creativas</span>
               </p>
               <div className={`flex gap-2 flex-wrap ${standalone ? "justify-start" : "justify-end"}`}>
                 {CREATIVE.map((s) => (
-                  <span key={s.name} className="group about-skill px-4 py-2 flex items-center gap-2 border border-white/12 rounded-full text-[10px] text-white/35 tracking-widest uppercase transition-colors duration-300 hover:bg-white hover:text-[#ff6b1a] hover:border-white cursor-default">
+                  <span key={s.name} className="group about-skill px-4 py-2 flex items-center gap-2 border border-bone/12 rounded-full text-[10px] text-bone/35 tracking-widest uppercase transition-colors duration-300 hover:bg-bone hover:text-[#e1251b] hover:border-bone cursor-default">
                     <s.icon className="w-3 h-3 transition-all duration-300 fill-transparent stroke-current stroke-[1.5px] group-hover:fill-current group-hover:stroke-transparent" />
                     {s.name}
                   </span>
@@ -151,19 +152,19 @@ export default function About({ standalone = false }) {
 
             <div className="w-full">
               <p className={`about-p text-[10px] tracking-[0.4em] uppercase mb-6 ${standalone ? "text-left" : "text-right"}`}>
-                <span className="border-b border-white/30 pb-2 inline-block text-white/50">Experience</span>
+                <span className="border-b border-bone/30 pb-2 inline-block text-bone/50">Formación</span>
               </p>
               <div className={`flex flex-col gap-4 mt-2 ${standalone ? "items-start" : "items-end"}`}>
                 {EXPERIENCE.map((exp, i) => (
                   <div key={i} className="about-skill">
-                    <p className="text-white/80 text-sm font-medium">{exp.role}</p>
-                    <p className="text-white/40 text-[10px] tracking-widest uppercase mt-1">{exp.period}</p>
+                    <p className="text-bone/80 text-sm font-medium">{exp.role}</p>
+                    <p className="text-bone/40 text-[10px] tracking-widest uppercase mt-1">{exp.period}</p>
                   </div>
                 ))}
               </div>
             </div>
           </div>
-        </div>
+        </div>}
       </div>
     </section>
   );

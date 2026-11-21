@@ -6,10 +6,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-import dynamic from "next/dynamic";
+import CinematicScenes from "../components/CinematicScenes";
+import Experience from "../components/Experience";
 import Cursor from "../components/Cursor";
 import Navbar from "../components/Navbar";
-const VideoScrub = dynamic(() => import("../components/VideoScrub"), { ssr: false });
 import Hero from "../components/Hero";
 import About from "../components/About";
 import Work from "../components/Work";
@@ -22,6 +22,7 @@ export default function Home() {
   const footerRef   = useRef(null);
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce), (pointer: coarse)").matches) return;
     const lenis = new Lenis({
       lerp: 0.1, // More responsive, less lag
       smoothWheel: true,
@@ -51,7 +52,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main>
+    <main className="cinematic-home">
       {/* SEO-crawlable structured content (visually hidden) - Forced HMR refresh */}
       <SeoContent />
 
@@ -62,7 +63,7 @@ export default function Home() {
       <Cursor />
 
       {/* sticky scrubbed video — lives behind everything */}
-      <VideoScrub />
+      <CinematicScenes />
 
       {/* scroll progress indicator */}
 
@@ -77,8 +78,9 @@ export default function Home() {
         <Hero />
         <About />
         <Work />
+        <Experience />
         <Contact />
-        <div ref={footerRef}><Footer /></div>
+        <div id="cinematic-footer" ref={footerRef}><Footer /></div>
       </div>
     </main>
   );

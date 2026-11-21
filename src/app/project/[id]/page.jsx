@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import gsap from "gsap";
+import { FALLBACK_PROJECTS } from "@/app/work/content";
 import PageShell from "../../../components/PageShell";
 
 function safeUrl(url) {
@@ -13,34 +13,31 @@ function safeUrl(url) {
 export default function ProjectPage() {
   const { id } = useParams();
   const router  = useRouter();
-  const [project, setProject]   = useState(null);
-  const [loading, setLoading]   = useState(true);
-  const [notFound, setNotFound] = useState(false);
+  const savedProject = FALLBACK_PROJECTS.find((entry) => entry.id === id);
+  const [result, setResult] = useState(null);
+  const loadedResult = result?.id === id ? result : null;
+  const project = savedProject || loadedResult?.project;
+  const loading = !savedProject && !loadedResult;
+  const notFound = loadedResult?.status === 404;
+  const loadError = loadedResult && !loadedResult.project && !notFound;
 
   useEffect(() => {
-    fetch(`/api/works/${id}`)
-      .then((r) => {
-        if (r.status === 404) { setNotFound(true); setLoading(false); return null; }
-        return r.json();
-      })
-      .then((data) => {
-        if (data && !data.error) {
-          setProject(data);
-          setLoading(false);
-        } else {
-          setNotFound(true);
-          setLoading(false);
+    if (savedProject) return;
+    const controller = new AbortController();
+    fetch(`/api/works/${encodeURIComponent(id)}`, { signal: controller.signal })
+      .then(async (response) => {
+        if (!response.ok) {
+          setResult({ id, status: response.status });
+          return;
         }
+        setResult({ id, project: await response.json() });
       })
-      .catch(() => { setNotFound(true); setLoading(false); });
-  }, [id]);
+      .catch(() => {
+        if (!controller.signal.aborted) setResult({ id, status: 500 });
+      });
 
-  useEffect(() => {
-    if (!project) return;
-    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-    gsap.from(".proj-hero-text", { y: 50, opacity: 0, duration: 0.8, ease: "power4.out", delay: 0.2 });
-    gsap.from(".proj-body",  { y: 40, opacity: 0, duration: 0.7, ease: "power3.out", delay: 0.4 });
-  }, [project]);
+    return () => controller.abort();
+  }, [id, savedProject]);
 
   // Parse tech/services into array safely
   const servicesData = project?.services || project?.tech;
@@ -67,114 +64,103 @@ export default function ProjectPage() {
 
   return (
     <PageShell>
-      <div className="min-h-screen bg-[#080808] text-white">
+      <div className="project-detail min-h-screen bg-[#080808] text-bone">
 
         {loading && (
           <div className="flex items-center justify-center min-h-screen">
-            <div className="w-6 h-6 border-2 border-white/20 border-t-[#ff6b1a] rounded-full animate-spin" />
+            <div className="w-6 h-6 border-2 border-bone/20 border-t-[#e1251b] rounded-full animate-spin" />
           </div>
         )}
 
-        {notFound && (
+        {(notFound || loadError) && (
           <div className="flex flex-col items-center justify-center min-h-screen gap-6">
-            <p className="text-white/20 text-sm tracking-widest uppercase">Project not found</p>
-            <Link href="/projects" className="text-[#ff6b1a] text-[11px] tracking-[0.4em] uppercase hover:opacity-70 transition-opacity">
-              Back to projects
+            <p className="text-bone/20 text-sm tracking-widest uppercase">{notFound ? "Proyecto no encontrado" : "No se pudo cargar el proyecto"}</p>
+            <Link href="/projects" className="text-[#e1251b] text-[11px] tracking-[0.4em] uppercase hover:opacity-70 transition-opacity">
+              Volver a proyectos
             </Link>
           </div>
         )}
 
         {project && (
           <>
-            {/* ── HERO ── */}
-            <div className="relative w-full h-[60vh] md:h-[70vh] overflow-hidden">
+            <header className="mx-auto grid max-w-7xl items-center gap-8 px-6 pb-8 pt-28 md:grid-cols-2 md:px-16 md:pt-36">
+              <div>
+                {project.category && (
+                  <p className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-[#fb9a61]">
+                    {project.label || project.category}
+                  </p>
+                )}
+                <h1 className="text-4xl font-black leading-tight tracking-tighter text-bone md:text-6xl">
+                  {project.title}
+                </h1>
+                {project.description && <p className="mt-4 max-w-prose text-base leading-relaxed text-bone/85">{project.description}</p>}
+                {(project.client || project.year) && (
+                  <p className="mt-3 text-sm text-bone/70">{[project.client, project.year].filter(Boolean).join(" · ")}</p>
+                )}
+                {project.link && (
+                  <a href={safeUrl(project.link)} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex rounded-full bg-[#e1251b] px-5 py-3 text-sm font-bold text-black hover:bg-[#f0463d] focus-visible:outline-2 focus-visible:outline-offset-4">
+                    Visitar sitio <span className="ml-2" aria-hidden="true">↗</span>
+                  </a>
+                )}
+              </div>
               {project.image_url || project.mobile_image_url ? (
-                (project.image_url?.includes('.mp4') || project.image_url?.includes('.webm') || project.image_url?.includes('.mov')) ? (
-                  <video src={project.image_url} className="absolute inset-0 w-full h-full object-cover" muted loop playsInline autoPlay />
-                ) : (
-                  <picture>
-                    {project.mobile_image_url && <source media="(max-width: 767px)" srcSet={project.mobile_image_url} />}
-                    <img
-                      src={project.image_url || project.mobile_image_url}
-                      alt={project.title}
-                      className="absolute inset-0 w-full h-full object-cover"
-                    />
-                  </picture>
-                )
-              ) : (
-                <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a] to-[#080808]" />
-              )}
-              {/* Dark overlay */}
-              <div className="absolute inset-0 bg-black/55" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-transparent to-transparent" />
-
-              {/* Hero text */}
-              <div className="absolute bottom-0 left-0 right-0 px-6 md:px-16 pb-10 md:pb-14">
-                <div className="proj-hero-text">
-                  {project.category && (
-                    <span className="inline-block text-[10px] text-[#ff6b1a] tracking-[0.5em] uppercase font-medium mb-3 border border-[#ff6b1a]/30 px-3 py-1 rounded-full">
-                      {project.category}
-                    </span>
-                  )}
-                  <h1
-                    className="font-black tracking-tighter leading-[0.88] text-white"
-                    style={{ fontSize: "clamp(2.2rem, 6vw, 5rem)" }}
-                  >
-                    {project.title}
-                  </h1>
-                  {(project.client || project.year) && (
-                    <div className="flex items-center gap-6 mt-4 text-white/50 text-sm">
-                      {project.client && (
-                        <span className="flex items-center gap-2">
-                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="5" r="2.5" stroke="currentColor" strokeWidth="1.2"/><path d="M2.5 12c0-2.485 2.015-4.5 4.5-4.5s4.5 2.015 4.5 4.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
-                          {project.client}
-                        </span>
-                      )}
-                      {project.year && (
-                        <span className="flex items-center gap-2">
-                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1.5" y="2.5" width="11" height="10" rx="1.5" stroke="currentColor" strokeWidth="1.2"/><path d="M1.5 5.5h11M4.5 1v3M9.5 1v3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/></svg>
-                          {project.year}
-                        </span>
-                      )}
-                    </div>
+                <div className="overflow-hidden rounded-lg border border-bone/15 bg-[#101010]">
+                  {/\.(mp4|webm|mov)([?#]|$)/i.test(project.image_url || "") ? (
+                    <video src={project.image_url} className="aspect-[1200/630] w-full object-contain" muted loop playsInline autoPlay />
+                  ) : (
+                    <picture>
+                      {project.mobile_image_url && <source media="(max-width: 767px)" srcSet={project.mobile_image_url} />}
+                      <img src={project.image_url || project.mobile_image_url} alt="" className="aspect-[1200/630] w-full object-contain" />
+                    </picture>
                   )}
                 </div>
-              </div>
-            </div>
+              ) : null}
+            </header>
 
             {/* ── BODY ── */}
-            <div className="proj-body px-6 md:px-16 py-16 md:py-20 max-w-7xl mx-auto">
+            <div className="px-6 md:px-16 pb-16 pt-5 md:pb-20 md:pt-10 max-w-7xl mx-auto">
               <div className="grid md:grid-cols-[1fr_280px] gap-12 md:gap-20">
 
                 {/* LEFT — description + gallery */}
                 <div>
-                  {project.description && (
-                    <>
-                      <h2 className="font-black text-xl text-white mb-5 tracking-tight">The Challenge</h2>
-                      <p className="text-white/55 text-base md:text-lg font-light leading-relaxed mb-12">
-                        {project.description}
-                      </p>
-                    </>
+                  {project.context && (
+                    <section className="mb-10">
+                      <h2 className="mb-4 text-xl font-black tracking-tight text-bone">Contexto y enfoque</h2>
+                      <p className="max-w-prose text-base leading-relaxed text-bone/80">{project.context}</p>
+                    </section>
+                  )}
+
+                  {project.role && (
+                    <p className="mb-8 text-sm font-semibold text-bone">Mi participación · {project.role}</p>
+                  )}
+
+                  {Array.isArray(project.details) && project.details.length > 0 && (
+                    <section className="mb-12">
+                      <h2 className="mb-5 text-xl font-black tracking-tight text-bone">Características</h2>
+                      <ul className="list-disc space-y-3 pl-5 text-base leading-relaxed text-bone/75">
+                        {project.details.map((detail) => <li key={detail}>{detail}</li>)}
+                      </ul>
+                    </section>
                   )}
 
                   {project.review && (
-                    <blockquote className="border-l-2 border-[#ff6b1a]/40 pl-6 mb-12">
-                      <p className="text-white/50 italic text-base leading-relaxed font-serif">"{project.review}"</p>
+                    <blockquote className="border-l-2 border-[#e1251b]/40 pl-6 mb-12">
+                      <p className="text-bone/50 italic text-base leading-relaxed font-serif">"{project.review}"</p>
                     </blockquote>
                   )}
-                  {/* Responsive Previews */}
+                  {/* Responsive Vistas previas */}
                   {(project.desktop_view_url || project.phone_view_url) && (
                     <div className="mb-12">
-                      <h2 className="font-black text-xl text-white mb-6 tracking-tight">Previews</h2>
+                      <h2 className="font-black text-xl text-bone mb-6 tracking-tight">Vistas previas</h2>
                       <div className="flex flex-col gap-6">
                         {project.desktop_view_url && (
-                          <div className="w-full rounded-2xl overflow-hidden bg-white/5 border border-white/10">
-                            <img src={project.desktop_view_url} alt="Desktop Preview" className="w-full object-cover" />
+                          <div className="w-full rounded-2xl overflow-hidden bg-bone/5 border border-bone/10">
+                            <img src={project.desktop_view_url} alt="Vista en escritorio" className="w-full object-cover" />
                           </div>
                         )}
                         {project.phone_view_url && (
-                          <div className="w-full max-w-sm mx-auto rounded-2xl overflow-hidden bg-white/5 border border-white/10">
-                            <img src={project.phone_view_url} alt="Phone Preview" className="w-full object-cover" />
+                          <div className="w-full max-w-sm mx-auto rounded-2xl overflow-hidden bg-bone/5 border border-bone/10">
+                            <img src={project.phone_view_url} alt="Vista en móvil" className="w-full object-cover" />
                           </div>
                         )}
                       </div>
@@ -184,10 +170,10 @@ export default function ProjectPage() {
                   {/* Gallery */}
                   {gallery && gallery.length > 0 && (
                     <div>
-                      <h2 className="font-black text-xl text-white mb-6 tracking-tight">Gallery</h2>
+                      <h2 className="font-black text-xl text-bone mb-6 tracking-tight">Galería</h2>
                       <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                         {gallery.map((url, i) => (
-                          <div key={i} className="aspect-video rounded-xl overflow-hidden bg-white/5">
+                          <div key={i} className="aspect-video rounded-xl overflow-hidden bg-bone/5">
                             {url.includes('.mp4') || url.includes('.webm') || url.includes('.mov') ? (
                               <video
                                 src={url}
@@ -210,37 +196,37 @@ export default function ProjectPage() {
 
                 {/* RIGHT — project details sidebar */}
                 <div className="md:pt-1">
-                  <div className="bg-[#111] border border-white/5 rounded-2xl p-6 md:sticky md:top-28 flex flex-col gap-6">
-                    <h3 className="font-bold text-white text-base tracking-tight">Project Details</h3>
+                  <div className="bg-[#111] border border-bone/5 rounded-2xl p-6 md:sticky md:top-28 flex flex-col gap-6">
+                    <h3 className="font-bold text-bone text-base tracking-tight">Detalles del proyecto</h3>
 
                     {project.client && (
                       <div>
-                        <p className="text-[9px] text-white/30 tracking-[0.4em] uppercase mb-1.5">Client</p>
-                        <p className="text-white text-sm font-medium">{project.client}</p>
+                        <p className="text-[9px] text-bone/30 tracking-[0.4em] uppercase mb-1.5">Cliente</p>
+                        <p className="text-bone text-sm font-medium">{project.client}</p>
                       </div>
                     )}
 
                     {project.year && (
                       <div>
-                        <p className="text-[9px] text-white/30 tracking-[0.4em] uppercase mb-1.5">Year</p>
-                        <p className="text-white text-sm font-medium">{project.year}</p>
+                        <p className="text-[9px] text-bone/30 tracking-[0.4em] uppercase mb-1.5">Año</p>
+                        <p className="text-bone text-sm font-medium">{project.year}</p>
                       </div>
                     )}
 
                     {project.category && (
                       <div>
-                        <p className="text-[9px] text-white/30 tracking-[0.4em] uppercase mb-1.5">Category</p>
-                        <p className="text-white/70 text-sm">{project.category}</p>
+                        <p className="text-[9px] text-bone/30 tracking-[0.4em] uppercase mb-1.5">Categoría</p>
+                        <p className="text-bone/70 text-sm">{project.label || project.category}</p>
                       </div>
                     )}
 
                     {services.length > 0 && (
                       <div>
-                        <p className="text-[9px] text-white/30 tracking-[0.4em] uppercase mb-2">Services</p>
+                        <p className="text-[9px] text-bone/30 tracking-[0.4em] uppercase mb-2">Áreas del proyecto</p>
                         <ul className="flex flex-col gap-1.5">
                           {services.map((s) => (
-                            <li key={s} className="flex items-center gap-2 text-white/60 text-sm">
-                              <span className="w-1 h-1 rounded-full bg-[#ff6b1a] shrink-0" />
+                            <li key={s} className="flex items-center gap-2 text-bone/60 text-sm">
+                              <span className="w-1 h-1 rounded-full bg-[#e1251b] shrink-0" />
                               {s}
                             </li>
                           ))}
@@ -248,19 +234,7 @@ export default function ProjectPage() {
                       </div>
                     )}
 
-                    {project.link && (
-                      <a
-                        href={safeUrl(project.link)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-2 w-full flex items-center justify-center gap-2 bg-[#ff6b1a] text-black font-bold py-3 rounded-xl text-[11px] uppercase tracking-widest hover:bg-[#ff8c42] transition-colors duration-300"
-                      >
-                        View Live
-                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                          <path d="M2 8L8 2M8 2H4M8 2v4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
-                        </svg>
-                      </a>
-                    )}
+
                   </div>
                 </div>
 
@@ -268,20 +242,20 @@ export default function ProjectPage() {
             </div>
 
             {/* ── CTA ── */}
-            <div className="border-t border-white/5 py-24 px-6 md:px-16 text-center">
-              <p className="text-[10px] text-[#ff6b1a] tracking-[0.5em] uppercase mb-5 font-medium">Start Your Journey</p>
-              <h2 className="font-black tracking-tighter leading-[0.9] mb-8 text-white" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}>
-                Ready to Elevate<br />
-                <span className="ghost-orange italic font-serif">Your Brand Presence?</span>
+            <div className="border-t border-bone/5 py-24 px-6 md:px-16 text-center">
+              <p className="text-[10px] text-[#e1251b] tracking-[0.5em] uppercase mb-5 font-medium">Hablemos</p>
+              <h2 className="font-black tracking-tighter leading-[0.9] mb-8 text-bone" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}>
+                ¿Qué quieres<br />
+                <span className="ghost-orange italic font-serif">construir?</span>
               </h2>
-              <p className="text-white/30 text-sm font-light mb-10 max-w-md mx-auto leading-relaxed">
-                From concept to completion, let's build something visually stunning and smooth to use.
+              <p className="text-bone/30 text-sm font-light mb-10 max-w-md mx-auto leading-relaxed">
+                Cuéntame qué necesitas y qué te gustaría lograr con tu proyecto.
               </p>
               <Link
                 href="/#contact-section"
-                className="inline-flex items-center gap-3 bg-[#ff6b1a] text-black font-black px-8 py-4 rounded-full text-[11px] uppercase tracking-[0.25em] hover:bg-[#ff8c42] transition-colors duration-300"
+                className="inline-flex items-center gap-3 bg-[#e1251b] text-black font-black px-8 py-4 rounded-full text-[11px] uppercase tracking-[0.25em] hover:bg-[#f0463d] transition-colors duration-300"
               >
-                Get In Touch
+                Contactar
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                   <path d="M2 10L10 2M10 2H5M10 2v5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
                 </svg>

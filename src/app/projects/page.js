@@ -4,14 +4,8 @@ import Navbar from "../../components/Navbar";
 import ProjectsPage from "../../views/projects";
 
 export const metadata = {
-  title:       "Projects — Case Studies & Client Work by Sarang",
-  description: "Explore detailed case studies of Sarang's freelance projects — website development, video editing, and design work with client testimonials and tech breakdowns.",
-  keywords:    ["portfolio projects", "case studies", "freelance work", "client projects"],
-  alternates:  { canonical: "https://sarang-space.site/projects" },
-  openGraph: {
-    title: "Projects — Sarang | Case Studies & Client Work",
-    description: "Detailed case studies of web development, video editing, and design projects by Sarang.",
-  },
+  title: "Proyectos",
+  description: "Explora los sitios, plataformas y sistemas creados por Miguel Ángel Dorantes Hernández.",
 };
 
 export default function Page() {

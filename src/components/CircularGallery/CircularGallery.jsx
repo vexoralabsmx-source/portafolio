@@ -41,9 +41,9 @@ function createTextTexture(gl, text, font = 'bold 30px monospace', color = 'blac
   
   if (color === 'gradient') {
     const gradient = context.createLinearGradient(0, 0, canvas.width, 0);
-    gradient.addColorStop(0, '#ffffff');
-    gradient.addColorStop(0.5, '#d4d4d4');
-    gradient.addColorStop(1, '#a3a3a3');
+    gradient.addColorStop(0, '#f3efe7');
+    gradient.addColorStop(0.5, '#d6d2ca');
+    gradient.addColorStop(1, '#a3a09b');
     context.fillStyle = gradient;
   } else {
     context.fillStyle = color;
@@ -291,7 +291,7 @@ class Media {
 
 class App {
   constructor(container, {
-    items, bend, textColor = '#ffffff', borderRadius = 0,
+    items, bend, textColor = '#f3efe7', borderRadius = 0,
     font = 'bold 30px Figtree', scrollSpeed = 2, scrollEase = 0.05,
     onItemClick, scaleMultiplier = 1
   } = {}) {
@@ -471,7 +471,7 @@ class App {
 export default function CircularGallery({
   items,
   bend = 3,
-  textColor = '#ffffff',
+  textColor = '#f3efe7',
   borderRadius = 0.05,
   font = 'bold 40px "Figtree", sans-serif',
   scrollSpeed = 2,

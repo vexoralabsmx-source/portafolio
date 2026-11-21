@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState, useMemo } from "react";
 
 const buildKeyframes = (from, steps) => {
@@ -26,6 +26,9 @@ const BlurText = ({
   stepDuration = 0.35,
   animateOnMount = false,
 }) => {
+  const prefersReducedMotion = useReducedMotion();
+  const [reducedMotion, setReducedMotion] = useState(false);
+  useEffect(() => { setReducedMotion(Boolean(prefersReducedMotion)); }, [prefersReducedMotion]);
   const elements = useMemo(() => {
     if (animateBy !== "words") {
       return text.split("").map(char => ({ word: char, punctuation: "", isItalic: false }));
@@ -61,23 +64,25 @@ const BlurText = ({
   const ref = useRef(null);
 
   useEffect(() => {
+    if (reducedMotion) return;
     if (animateOnMount) {
       setInView(true);
       return;
     }
-    if (!ref.current) return;
+    const target = ref.current;
+    if (!target) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setInView(true);
-          observer.unobserve(ref.current);
+          observer.unobserve(target);
         }
       },
       { threshold, rootMargin }
     );
-    observer.observe(ref.current);
+    observer.observe(target);
     return () => observer.disconnect();
-  }, [threshold, rootMargin, animateOnMount]);
+  }, [threshold, rootMargin, animateOnMount, reducedMotion]);
 
   const defaultFrom = useMemo(
     () =>
@@ -103,6 +108,10 @@ const BlurText = ({
     stepCount === 1 ? 0 : i / (stepCount - 1)
   );
 
+  if (reducedMotion) {
+    return <p className={className}>{text.replaceAll("*", "")}</p>;
+  }
+
   return (
     <p ref={ref} className={className}>
       {elements.map((segment, index) => {
@@ -126,7 +135,7 @@ const BlurText = ({
             }
           >
             {segment.isItalic ? (
-              <span className="font-serif italic text-white/90">{segment.word}</span>
+              <span className="font-serif italic text-bone/90">{segment.word}</span>
             ) : (
               segment.word
             )}

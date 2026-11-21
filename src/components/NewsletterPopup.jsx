@@ -43,11 +43,11 @@ export default function NewsletterPopup() {
       const data = await res.json();
       
       if (!res.ok) {
-        throw new Error(data.error || "Failed to subscribe");
+        throw new Error(data.error || "No se pudo completar la suscripción.");
       }
 
       setStatus("success");
-      setMessage(data.message || "Subscribed successfully!");
+      setMessage(data.message || "¡Suscripción confirmada!");
       localStorage.setItem("newsletter_subscribed", "true");
       
       // Auto close after success
@@ -66,21 +66,21 @@ export default function NewsletterPopup() {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-      <div className="relative w-full max-w-md bg-[#0a0a0a] border border-white/10 rounded-3xl p-8 shadow-2xl animate-fade-in-up">
+      <div className="relative w-full max-w-md bg-[#0a0a0a] border border-bone/10 rounded-3xl p-8 shadow-2xl animate-fade-in-up">
         <button 
           onClick={closePopup}
-          className="absolute top-6 right-6 text-white/40 hover:text-white transition-colors"
+          className="absolute top-6 right-6 text-bone/40 hover:text-bone transition-colors"
         >
           <FiX size={24} />
         </button>
 
         <div className="mb-6">
-          <div className="w-12 h-12 bg-[#ff6b1a]/10 text-[#ff6b1a] rounded-xl flex items-center justify-center mb-4">
+          <div className="w-12 h-12 bg-[#e1251b]/10 text-[#e1251b] rounded-xl flex items-center justify-center mb-4">
             <FiMail size={24} />
           </div>
-          <h2 className="text-2xl font-bold text-white mb-2">Join the Newsletter</h2>
-          <p className="text-white/60 text-sm leading-relaxed">
-            Get notified whenever I publish new cinematic portfolios, web development tips, or creative design resources.
+          <h2 className="text-2xl font-bold text-bone mb-2">Suscríbete al boletín</h2>
+          <p className="text-bone/60 text-sm leading-relaxed">
+            Recibe novedades sobre proyectos, desarrollo web y diseño.
           </p>
         </div>
 
@@ -97,8 +97,8 @@ export default function NewsletterPopup() {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email address"
-                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-[#ff6b1a] transition-colors"
+                placeholder="Tu correo electrónico"
+                className="w-full bg-bone/5 border border-bone/10 rounded-xl px-4 py-3 text-bone placeholder:text-bone/30 focus:outline-none focus:border-[#e1251b] transition-colors"
               />
             </div>
             
@@ -109,15 +109,15 @@ export default function NewsletterPopup() {
             <button
               type="submit"
               disabled={status === "loading"}
-              className="w-full py-3 bg-[#ff6b1a] text-black font-bold rounded-xl hover:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-3 bg-[#e1251b] text-black font-bold rounded-xl hover:bg-bone transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {status === "loading" ? "Subscribing..." : "Subscribe Now"}
+              {status === "loading" ? "Suscribiendo…" : "Suscribirme"}
             </button>
           </form>
         )}
         
-        <p className="text-[10px] text-white/30 mt-4 text-center">
-          No spam. Unsubscribe at any time.
+        <p className="text-[10px] text-bone/30 mt-4 text-center">
+          Puedes cancelar la suscripción cuando quieras.
         </p>
       </div>
     </div>

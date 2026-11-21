@@ -5,14 +5,14 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import ContactPopup from "./ContactPopup";
+import { WHATSAPP_URL } from "@/lib/portfolio";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const LINKS = [
-  { label: "Projects", href: "/projects" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Proyectos", href: "/projects" },
+  { label: "Sobre mí", href: "/about" },
+  { label: "Contacto", href: "/contact" },
 ];
 
 export default function Navbar() {
@@ -20,9 +20,8 @@ export default function Navbar() {
   const menuRef   = useRef(null);
   const pathname  = usePathname();
   const [open, setOpen] = useState(false);
-  const [isContactOpen, setIsContactOpen] = useState(false);
 
-  // Close menu on route change
+  // Cerrar menú on route change
   useEffect(() => { setOpen(false); }, [pathname]);
 
   // Lock body scroll when menu open
@@ -65,16 +64,16 @@ export default function Navbar() {
   };
 
   const getBackLabel = (path) => {
-    if (path?.startsWith("/project/")) return "Works";
+    if (path?.startsWith("/project/")) return "Proyectos";
     if (path?.startsWith("/blog/")) return "Blog";
-    return "Back";
+    return "Volver";
   };
 
   return (
     <>
       <nav
         ref={navRef}
-        aria-label="Main navigation"
+        aria-label="Navegación principal"
         className="fixed top-0 left-0 right-0 z-[60] flex justify-between items-center px-6 md:px-20 py-7"
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-transparent pointer-events-none" />
@@ -82,7 +81,7 @@ export default function Navbar() {
         {/* Logo + back */}
         <div className="relative flex items-center gap-5">
           {pathname !== "/" && (
-            <Link href={getBackLink(pathname)} className="flex items-center gap-2 text-white/40 hover:text-[#ff6b1a] transition-colors duration-300 group">
+            <Link href={getBackLink(pathname)} className="flex items-center gap-2 text-bone/40 hover:text-[#e1251b] transition-colors duration-300 group">
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" className="transition-transform duration-300 group-hover:-translate-x-1">
                 <path d="M11 14L6 9l5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
@@ -91,8 +90,8 @@ export default function Navbar() {
           )}
           <Link href="/" className="flex items-center hover:opacity-80 transition-opacity duration-300">
             <Image
-              src="/photo/logo navbar inverse.png"
-              alt="Sarang — Portfolio Designer & Creative Developer"
+              src="/photo/miguel-mark.png"
+              alt="Miguel Ángel Dorantes Hernández"
               width={120} height={40}
               className="h-9 w-auto"
               priority
@@ -106,20 +105,21 @@ export default function Navbar() {
             const active = pathname === href;
             return (
               <li key={href}>
-                <Link href={href} className={`px-4 py-2 transition-all duration-300 ${active ? "text-[#ff6b1a]" : "text-white/50 hover:text-white/80"}`}>
+                <Link href={href} className={`px-4 py-2 transition-all duration-300 ${active ? "text-[#e1251b]" : "text-bone/50 hover:text-bone/80"}`}>
                   {label}
                 </Link>
               </li>
             );
           })}
           <li className="ml-2">
-            <button 
-              suppressHydrationWarning
-              onClick={() => setIsContactOpen(true)}
-              className="px-5 py-2 bg-[#ff6b1a] text-black font-bold rounded-full hover:bg-white hover:text-black transition-colors duration-300 flex items-center gap-2"
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-5 py-2 bg-[#e1251b] text-black font-bold rounded-full hover:bg-bone hover:text-black transition-colors duration-300 flex items-center gap-2"
             >
-              Start Now
-            </button>
+              WhatsApp
+            </a>
           </li>
         </ul>
 
@@ -128,11 +128,11 @@ export default function Navbar() {
           suppressHydrationWarning
           onClick={() => setOpen(v => !v)}
           className="relative md:hidden flex flex-col justify-center items-center w-10 h-10 gap-[6px] z-[60]"
-          aria-label={open ? "Close menu" : "Open menu"}
+          aria-label={open ? "Cerrar menú" : "Abrir menú"}
         >
-          <span className={`block w-6 h-[1.5px] bg-white transition-all duration-300 origin-center ${open ? "rotate-45 translate-y-[7.5px]" : ""}`} />
-          <span className={`block w-6 h-[1.5px] bg-white transition-all duration-300 ${open ? "opacity-0 scale-x-0" : ""}`} />
-          <span className={`block w-6 h-[1.5px] bg-white transition-all duration-300 origin-center ${open ? "-rotate-45 -translate-y-[7.5px]" : ""}`} />
+          <span className={`block w-6 h-[1.5px] bg-bone transition-all duration-300 origin-center ${open ? "rotate-45 translate-y-[7.5px]" : ""}`} />
+          <span className={`block w-6 h-[1.5px] bg-bone transition-all duration-300 ${open ? "opacity-0 scale-x-0" : ""}`} />
+          <span className={`block w-6 h-[1.5px] bg-bone transition-all duration-300 origin-center ${open ? "-rotate-45 -translate-y-[7.5px]" : ""}`} />
         </button>
       </nav>
 
@@ -150,33 +150,30 @@ export default function Navbar() {
                   <Link
                     href={href}
                     onClick={() => setOpen(false)}
-                    className={`block text-4xl font-black tracking-tighter transition-colors duration-300 ${active ? "text-[#ff6b1a]" : "text-white/70 hover:text-white"}`}
+                    className={`block text-4xl font-black tracking-tighter transition-colors duration-300 ${active ? "text-[#e1251b]" : "text-bone/70 hover:text-bone"}`}
                   >
                     {label}
                   </Link>
                 </li>
               );
             })}
-            <li className="mobile-nav-link mt-4 pt-4 border-t border-white/10 flex flex-col gap-6">
-               <button 
-                 suppressHydrationWarning
-                 onClick={() => {
-                   setOpen(false);
-                   setIsContactOpen(true);
-                 }}
-                 className="w-full py-4 bg-[#ff6b1a] text-black text-xl font-bold tracking-tight rounded-2xl hover:bg-white hover:text-black transition-colors duration-300"
+            <li className="mobile-nav-link mt-4 pt-4 border-t border-bone/10 flex flex-col gap-6">
+               <a
+                 href={WHATSAPP_URL}
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 onClick={() => setOpen(false)}
+                 className="block w-full py-4 text-center bg-[#e1251b] text-black text-xl font-bold tracking-tight rounded-2xl hover:bg-bone hover:text-black transition-colors duration-300"
                >
-                 Start Now
-               </button>
+                 WhatsApp
+               </a>
             </li>
           </ul>
-          <div className="mobile-nav-link mt-16 text-[10px] text-white/20 tracking-[0.4em] uppercase">
-            Sarang · Portfolio
+          <div className="mobile-nav-link mt-16 text-[10px] text-bone/20 tracking-[0.4em] uppercase">
+            Miguel Ángel · Portafolio
           </div>
         </div>
       )}
-      {/* Contact Popup */}
-      <ContactPopup isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
     </>
   );
 }

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { jwtVerify } from 'jose';
+import { FALLBACK_PROJECTS } from "@/app/work/content";
 import { supabase } from '@/lib/supabase';
 
 async function isAdmin() {
@@ -18,6 +19,9 @@ async function isAdmin() {
 
 export async function GET(request, { params }) {
   const { id } = await params;
+  const savedProject = FALLBACK_PROJECTS.find((project) => project.id === id);
+  if (savedProject) return NextResponse.json(savedProject);
+  if (!supabase) return NextResponse.json({ error: "Not found" }, { status: 404 });
   const { data: work, error } = await supabase
     .from('works')
     .select('*')

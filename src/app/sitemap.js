@@ -1,12 +1,12 @@
+import { FALLBACK_PROJECTS } from "@/app/work/content";
 import { createClient } from "@supabase/supabase-js";
 
-const BASE = "https://sarang-space.site";
+const BASE = "https://www.portafoliomike.xyz";
 
 export default async function sitemap() {
   const staticPages = [
     { url: BASE,                       lastModified: new Date(), changeFrequency: "weekly",  priority: 1.0  },
     { url: `${BASE}/projects`,         lastModified: new Date(), changeFrequency: "weekly",  priority: 0.9  },
-    { url: `${BASE}/work`,             lastModified: new Date(), changeFrequency: "weekly",  priority: 0.9  },
     { url: `${BASE}/about`,            lastModified: new Date(), changeFrequency: "monthly", priority: 0.8  },
     { url: `${BASE}/contact`,          lastModified: new Date(), changeFrequency: "yearly",  priority: 0.75 },
   ];
@@ -37,5 +37,5 @@ export default async function sitemap() {
     // DB unreachable — serve static pages only
   }
 
-  return [...staticPages, ...projectPages];
+  return [...staticPages, ...projectPages, ...FALLBACK_PROJECTS.map(({ id }) => ({ url: `${BASE}/project/${id}` }))];
 }
